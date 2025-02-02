@@ -11,6 +11,7 @@ Lume is a powerful, real-time **School Analytics Dashboard** that provides dynam
 ## Features
 
 ### Core Features
+
 - [ ] **Real-time Data Visualization**
   - Interactive charts and graphs to display **student performance**, **attendance rates**, and more
   - **Trend analysis** for student grades and attendance
@@ -29,16 +30,18 @@ Lume is a powerful, real-time **School Analytics Dashboard** that provides dynam
   - **Upcoming assignments** or deadlines
 
 ### Bonus Features
-- [ ] **Data Export Capabilities**  
+
+- [ ] **Data Export Capabilities**
   - Export data to **CSV/PDF** for reports
 - [ ] **Customizable Dashboard Widgets**
   - Users can customize their dashboards to show relevant data
-- [ ] **Dark/Light Theme Support**  
+- [ ] **Dark/Light Theme Support**
   - Toggle between dark and light mode for better UX
 
 ## Getting Started
 
 ### Prerequisites
+
 - Node.js (v14 or higher)
 - npm or yarn
 - Modern web browser
@@ -46,12 +49,14 @@ Lume is a powerful, real-time **School Analytics Dashboard** that provides dynam
 ### Installation
 
 1. **Clone the repository**
+
 ```bash
-git clone https://github.com/yourusername/lume.git
-cd lume
+git clone https://github.com/ToastFreak777/Lume.git
+cd Lume
 ```
 
 2. **Install dependencies**
+
 ```bash
 npm install
 # or
@@ -59,6 +64,7 @@ yarn install
 ```
 
 3. **Start the development server**
+
 ```bash
 npm run dev
 # or
@@ -89,4 +95,4 @@ Contributions are welcome! Please feel free to submit a Pull Request.
 
 ## Contact
 
-Project Link: https://github.com/yourusername/lume
+Project Link: https://github.com/ToastFreak777/Lume
