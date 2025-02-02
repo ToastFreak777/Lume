@@ -1,6 +1,6 @@
 import express from "express";
 import dotenv from "dotenv";
-// import "express-async-errors";
+import "express-async-errors";
 
 dotenv.config();
 
@@ -10,6 +10,9 @@ const app = express();
 import connectDB from "./db/connect.js";
 
 // Middleware
+import errorHandler from "./middleware/errorHandler.js";
+import notFound from "./middleware/notFound.js";
+
 // app.use([express.json(), express.urlencoded({ extended: true })]);
 
 // Routers
@@ -28,6 +31,8 @@ app.use("/api/grades", gradesRouter);
 app.use("/api/notifications", notificationsRouter);
 app.use("/api/assignments", assignmentsRouter);
 app.use("/api/attendance", attendanceRouter);
+
+app.use([notFound, errorHandler]);
 
 const start = async () => {
   try {
