@@ -6,6 +6,10 @@ dotenv.config();
 
 const app = express();
 
+// Logger
+import morgan from "morgan";
+app.use(morgan("dev"));
+
 // Database connection
 import connectDB from "./db/connect.js";
 
@@ -13,7 +17,7 @@ import connectDB from "./db/connect.js";
 import errorHandler from "./middleware/errorHandler.js";
 import notFound from "./middleware/notFound.js";
 
-// app.use([express.json(), express.urlencoded({ extended: true })]);
+app.use([express.json(), express.urlencoded({ extended: true })]);
 
 // Routers
 import authRouter from "./routes/auth.route.js";

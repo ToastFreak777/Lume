@@ -7,7 +7,27 @@ const errorHandler = (err, req, res, next) => {
       stack: process.env.NODE_ENV === "PRODUCTION" ? null : err.stack,
     });
   }
-  return res.status(500).json({ msg: "Something went wrong" });
+
+  // Handle Mongoose validation errors
+  if (err.name === "ValidationError") {
+    return res.status(400).json({
+      msg: Object.values(err.errors)
+        .map((e) => e.message)
+        .join(", "),
+    });
+  }
+
+  // Handle duplicate key errors
+  if (err.code === 11000) {
+    return res.status(400).json({
+      msg: `Duplicate value entered for ${Object.keys(err.keyValue)} field`,
+    });
+  }
+
+  return res.status(500).json({
+    msg: "Something went wrong",
+    stack: process.env.NODE_ENV === "PRODUCTION" ? null : err.stack,
+  });
 };
 
 export default errorHandler;
