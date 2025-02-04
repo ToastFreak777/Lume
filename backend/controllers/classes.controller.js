@@ -63,5 +63,5 @@ export const deleteClass = async (req, res) => {
 
   res
     .status(StatusCodes.OK)
-    .json({ msg: `${klass.clssName} deleted successfully` });
+    .json({ msg: `${klass.className} deleted successfully` });
 };

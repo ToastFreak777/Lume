@@ -2,6 +2,14 @@ import express from "express";
 import dotenv from "dotenv";
 import "express-async-errors";
 
+// Security packages
+import helmet from "helmet";
+// import cors from "cors";
+// import xss from "xss-clean";
+// import rateLimit from "express-rate-limit";
+// import compression from "compression";
+import cookieParser from "cookie-parser";
+
 dotenv.config();
 
 const app = express();
@@ -16,8 +24,6 @@ import connectDB from "./db/connect.js";
 // Middleware
 import errorHandler from "./middleware/errorHandler.js";
 import notFound from "./middleware/notFound.js";
-
-app.use([express.json(), express.urlencoded({ extended: true })]);
 
 // Routers
 import authRouter from "./routes/auth.route.js";
@@ -35,6 +41,19 @@ app.use("/api/grades", gradesRouter);
 app.use("/api/notifications", notificationsRouter);
 app.use("/api/assignments", assignmentsRouter);
 app.use("/api/attendance", attendanceRouter);
+
+app.use([
+  // rateLimit({
+  //   windowMs: 15 * 60 * 1000,
+  //   max: 100,
+  // }),
+  express.json(),
+  helmet(),
+  // cors(),
+  // xss(),
+  // compression(),
+  cookieParser(process.env.COOKIE_SECRET),
+]);
 
 app.use([notFound, errorHandler]);
 
