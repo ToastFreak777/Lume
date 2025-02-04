@@ -5,5 +5,5 @@
 - [x] Created models
 - [] Added logic to controllers
 - [x] added database connection
-- [] added route protection and other middleware
+- [x] added route protection and other middleware
 - [] tested api routes

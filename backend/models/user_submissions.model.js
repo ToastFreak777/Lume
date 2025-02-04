@@ -12,15 +12,27 @@ const UserSubmissionSchema = new mongoose.Schema(
       ref: "Assignments",
       required: [true, "Please provide an assignment id for this submission"],
     },
+    files: [
+      {
+        url: { type: String, required: true },
+        filename: { type: String, required: true },
+        type: { type: String, required: true },
+      },
+    ],
     status: {
       type: String,
-      enum: ["SUBMITTED", "GRADED", "LATE"],
-      required: [true, "Please provide a status for this submission"],
+      enum: ["Pending", "Submitted", "Graded"],
+      default: "Pending",
     },
+    submissionDate: {
+      type: Date,
+      default: null,
+    },
+    feedback: { type: String, trim: true },
   },
   { timestamps: true }
 );
 
-// UserSubmissionSchema.index({ userId: 1, assignmentId: 1 });
+// UserSubmissionSchema.index({ userId: 1, assignmentId: 1 }, {unique: true});
 
 export default mongoose.model("UserSubmissions", UserSubmissionSchema);

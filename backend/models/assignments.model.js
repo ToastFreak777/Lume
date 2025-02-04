@@ -28,7 +28,7 @@ const AssignmentsSchema = new mongoose.Schema(
       type: Number,
       default: 1,
     },
-    comments: { type: String, trim: true },
+    instructions: { type: String, trim: true },
   },
   { timestamps: true }
 );

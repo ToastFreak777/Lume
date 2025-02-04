@@ -7,11 +7,6 @@ const GradesSchema = new mongoose.Schema(
       ref: "Users",
       required: [true, "Please provide a user id for this grade"],
     },
-    classId: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "Classes",
-      required: [true, "Please provide a class id for this grade"],
-    },
     assignmentId: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "Assignments",
@@ -28,5 +23,6 @@ const GradesSchema = new mongoose.Schema(
 );
 
 GradesSchema.index({ userId: 1 });
+// GradesSchema.index({ userId: 1, classId: 1 });
 
 export default mongoose.model("Grades", GradesSchema);

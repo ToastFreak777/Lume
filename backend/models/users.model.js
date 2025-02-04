@@ -7,7 +7,7 @@ const UsersSchema = new mongoose.Schema(
   {
     role: {
       type: String,
-      enum: ["ADMIN", "TEACHER", "STUDENT", "PARENT"],
+      enum: ["Admin", "Instructor", "Student", "Parent"],
       required: [true, "Please provide a role for this user"],
       trim: true,
     },
@@ -46,6 +46,21 @@ const UsersSchema = new mongoose.Schema(
       type: [mongoose.Schema.Types.ObjectId],
       ref: "Users",
       default: [],
+    },
+    major: {
+      type: String,
+      default: null,
+      trim: true,
+    },
+    enrollmentYear: {
+      type: Number,
+      min: 2000,
+      max: 2100,
+    },
+    graduationYear: {
+      type: Number,
+      min: 2000,
+      max: 2100,
     },
   },
   { timestamps: true }
@@ -91,6 +106,11 @@ UsersSchema.methods.addStudent = async function (studentId) {
 UsersSchema.methods.removeStudent = async function (studentId) {
   this.studentIds = this.studentIds.filter((id) => !id.equals(studentId));
   await this.save();
+};
+
+UsersSchema.methods.calculateGPA = async function () {
+  const grades = await mongoose.model("Grades").find({ userId: this._id });
+  return grades.reduce((sum, g) => sum + g.grade, 0) / grades.length;
 };
 
 export default mongoose.model("Users", UsersSchema);
