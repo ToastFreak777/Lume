@@ -1,0 +1,108 @@
+@import url("https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&display=swap");
+
+:root {
+  --active-bg: rgba(128, 128, 128, 0.363);
+  --active-color: #fff;
+  --br-nav: 0.6rem;
+  --fs-300: 12px;
+  --fs-400: 14px;
+  --ff-normal: "Manrope", sans-serif;
+  --fw-xl: 200;
+  --fw-l: 300;
+  --fw-normal: 400;
+  --fw-medium: 500;
+  --fw-semibold: 600;
+  --fw-bold: 700;
+  --fw-x-bold: 800;
+}
+
+.nav {
+  background-color: black;
+  color: #a7a7a7;
+  font-size: var(--fs-400);
+  font-family: var(--ff-normal);
+  font-weight: var(--fw-xl);
+  line-height: 1.125rem;
+
+  display: grid;
+  place-content: space-between;
+
+  padding: 1.5rem;
+
+  .nav-menu {
+    .menu-profile {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding-block: 1rem;
+      padding-inline: 1rem 2rem;
+
+      background-color: rgba(128, 128, 128, 0.2);
+      border-radius: var(--br-nav);
+      border: 1px solid rgb(156, 150, 133);
+    }
+
+    .profile-info {
+      color: #fefefe;
+      font-size: var(--fs-300);
+
+      .profile-user-name {
+        font-weight: var(--fw-semibold);
+        font-size: var(--fs-400);
+      }
+
+      .profile-user-email {
+        text-decoration: underline;
+      }
+    }
+  }
+
+  .nav-footer {
+    border-top: 1px solid gray;
+    .settings {
+      margin-block: 1rem;
+    }
+  }
+}
+
+.menu-tabs {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin-top: 3rem;
+
+}
+
+.menu-tabs,
+.nav-footer {
+
+  /* All children of menu-tabs */
+
+  > * {
+    cursor: pointer;
+    border-radius: var(--br-nav);
+  }
+
+  > *:hover {
+    background-color: rgba(128, 128, 128, 0.2);
+  }
+}
+
+.flex-group {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem;
+}
+
+.active {
+  background-color: var(--active-bg);
+  font-weight: var(--fw-semibold);
+  color: var(--active-color);
+}
+
+.profile-pic {
+  width: 3rem;
+  height: 3rem;
+  border-radius: 50%;
+}
