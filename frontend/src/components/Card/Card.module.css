@@ -1,0 +1,19 @@
+.card {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem;
+
+  border: 2px solid var(--color-gray);
+  border-radius: 1rem;
+
+  .cardContent {
+    .cardTitle {
+      font-weight: var(--fw-bold);
+    }
+
+    .cardSubtitle {
+      color: var(--color-gray);
+    }
+  }
+}

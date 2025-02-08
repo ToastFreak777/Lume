@@ -1,0 +1,42 @@
+.calendar {
+  padding: 1rem;
+
+  .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    .date {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+
+      .arrow {
+        display: flex;
+        gap: 0.25rem;
+
+        svg {
+          font-weight: var(--fw-x-bold);
+        }
+      }
+
+      > svg {
+        font-size: var(--fs-500);
+        color: var(--color-gray);
+      }
+    }
+  }
+}
+
+.calendarBoard {
+  display: grid;
+  grid-template-columns: repeat(7, auto);
+
+  margin-top: 1rem;
+
+  border: 2px solid black;
+
+  .box {
+    border: 1px solid var(--color-gray);
+  }
+}

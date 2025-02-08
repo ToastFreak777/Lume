@@ -1,0 +1,9 @@
+.container {
+  display: flex;
+  height: 100vh;
+}
+
+.mainContent {
+  border: 1px solid var(--color-gray);
+  width: 100%;
+}

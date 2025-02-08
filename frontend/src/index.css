@@ -1,3 +1,22 @@
+@import url("https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&display=swap");
+
+:root {
+  --fs-200: 0.625rem;
+  --fs-300: 0.75rem;
+  --fs-400: 0.875rem;
+  --fs-500: 1.25rem;
+  --ff: "Manrope", sans-serif;
+  --fw-xl: 200;
+  --fw-l: 300;
+  --fw-normal: 400;
+  --fw-medium: 500;
+  --fw-semibold: 600;
+  --fw-bold: 700;
+  --fw-x-bold: 800;
+
+  --color-gray: #7b7b7b;
+}
+
 /* 1. Use a more-intuitive box-sizing model */
 *,
 *::before,
@@ -11,8 +30,10 @@
 }
 
 body {
-  /* 3. Add accessible line-height */
+  font-family: var(--ff);
+  font-size: var(--fs-400);
   line-height: 1.5;
+
   /* 4. Improve text rendering */
   -webkit-font-smoothing: antialiased;
 }
@@ -57,18 +78,4 @@ h4,
 h5,
 h6 {
   text-wrap: balance;
-}
-
-.container {
-  display: flex;
-  background: red;
-  height: 100vh;
-}
-
-.content {
-  background: green;
-}
-
-.right-side-bar {
-  background: blue;
 }

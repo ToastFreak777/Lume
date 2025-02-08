@@ -1,0 +1,18 @@
+.box {
+  padding: 0.25rem;
+  height: 80px;
+  width: 80px;
+
+  /* display: grid;
+  grid-template-rows: 1fr 1fr; */
+  .info {
+    .name {
+      font-weight: var(--fw-bold);
+    }
+
+    .courseCode,
+    .dueDate {
+      font-size: var(--fs-300);
+    }
+  }
+}

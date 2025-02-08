@@ -1,28 +1,14 @@
-@import url("https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&display=swap");
-
 :root {
   --active-bg: rgba(128, 128, 128, 0.363);
   --active-color: #fff;
   --br-nav: 0.6rem;
-  --fs-300: 12px;
-  --fs-400: 14px;
-  --ff-normal: "Manrope", sans-serif;
-  --fw-xl: 200;
-  --fw-l: 300;
-  --fw-normal: 400;
-  --fw-medium: 500;
-  --fw-semibold: 600;
-  --fw-bold: 700;
-  --fw-x-bold: 800;
 }
 
 .nav {
-  background-color: black;
+  background-color: #111;
   color: #a7a7a7;
   font-size: var(--fs-400);
-  font-family: var(--ff-normal);
   font-weight: var(--fw-xl);
-  line-height: 1.125rem;
 
   display: grid;
   place-content: space-between;
@@ -37,9 +23,9 @@
       padding-block: 1rem;
       padding-inline: 1rem 2rem;
 
-      background-color: rgba(128, 128, 128, 0.2);
+      background-color: #1d1d1d;
       border-radius: var(--br-nav);
-      border: 1px solid rgb(156, 150, 133);
+      border: 1px solid #323232;
     }
 
     .profile-info {
@@ -70,12 +56,10 @@
   flex-direction: column;
   gap: 0.5rem;
   margin-top: 3rem;
-
 }
 
 .menu-tabs,
 .nav-footer {
-
   /* All children of menu-tabs */
 
   > * {
