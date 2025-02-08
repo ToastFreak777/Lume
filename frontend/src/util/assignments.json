@@ -4,93 +4,104 @@
     {
       "day": 2,
       "id": "1",
-      "name": "Introduction Quiz",
+      "name": "Course Introduction Quiz",
       "courseCode": "LA 300",
-      "dueDate": "11:59 PM"
+      "dueDate": "11:59 PM",
+      "subject": "language-arts"
     },
     { "day": 3 },
     {
       "day": 4,
       "id": "2",
-      "name": "Linear Equations",
+      "name": "Linear Equations Problem Set",
       "courseCode": "MA 300",
-      "dueDate": "3 PM"
+      "dueDate": "3 PM",
+      "subject": "math"
     },
     { "day": 5 },
     { "day": 6 },
     {
       "day": 7,
       "id": "3",
-      "name": "Lab Quiz",
+      "name": "Lab Safety Quiz",
       "courseCode": "SC 300",
-      "dueDate": "5 PM"
+      "dueDate": "5 PM",
+      "subject": "science"
     },
     { "day": 8 },
     {
       "day": 9,
       "id": "4",
-      "name": "Reading 1",
+      "name": "Reading Response 1",
       "courseCode": "LA 300",
-      "dueDate": "11 AM"
+      "dueDate": "11 AM",
+      "subject": "language-arts"
     },
     { "day": 10 },
     { "day": 11 },
     {
       "day": 12,
       "id": "5",
-      "name": "Lab Report",
+      "name": "Chemical Reactions Lab Report",
       "courseCode": "SC 300",
-      "dueDate": "2 PM"
+      "dueDate": "2 PM",
+      "subject": "science"
     },
     { "day": 13 },
     {
       "day": 14,
       "id": "6",
-      "name": "Quadratic Quiz",
+      "name": "Quadratic Functions Quiz",
       "courseCode": "MA 300",
-      "dueDate": "4 PM"
+      "dueDate": "4 PM",
+      "subject": "math"
     },
     { "day": 15 },
     {
       "day": 16,
       "id": "7",
-      "name": "LA Essay",
+      "name": "Literature Analysis Essay",
       "courseCode": "LA 300",
-      "dueDate": "11:59 PM"
+      "dueDate": "11:59 PM",
+      "subject": "language-arts"
     },
     { "day": 17 },
     { "day": 18 },
     {
       "day": 19,
       "id": "8",
-      "name": "Problem Set",
+      "name": "Physics Problem Set",
       "courseCode": "SC 300",
-      "dueDate": "1 PM"
+      "dueDate": "1 PM",
+      "subject": "science"
     },
     { "day": 20 },
     {
       "day": 21,
       "id": "9",
-      "name": "Quiz",
+      "name": "Vocabulary Quiz",
       "courseCode": "LA 300",
-      "dueDate": "10 AM"
+      "dueDate": "10 AM",
+      "subject": "language-arts"
     },
     { "day": 22 },
     {
       "day": 23,
       "id": "10",
-      "name": "Test",
+      "name": "Trigonometry Test",
       "courseCode": "MA 300",
-      "dueDate": "2 PM"
+      "dueDate": "2 PM",
+      "subject": "math"
     },
     { "day": 24 },
     { "day": 25 },
     {
       "day": 26,
       "id": "11",
-      "name": "Biology Paper",
+      "name": "Biology Research Paper",
       "courseCode": "SC 300",
-      "dueDate": "11:59 PM"
+      "dueDate": "11:59 PM",
+      "subject": "science"
     },
     { "day": 27 },
     {
@@ -98,7 +109,8 @@
       "id": "12",
       "name": "Poetry Analysis",
       "courseCode": "LA 300",
-      "dueDate": "3 PM"
+      "dueDate": "3 PM",
+      "subject": "language-arts"
     }
   ]
 }

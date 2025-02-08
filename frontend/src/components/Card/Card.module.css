@@ -2,7 +2,7 @@
   display: flex;
   align-items: center;
   gap: 1rem;
-  padding: 1rem;
+  padding: 0.425rem;
 
   border: 2px solid var(--color-gray);
   border-radius: 1rem;
@@ -16,4 +16,10 @@
       color: var(--color-gray);
     }
   }
+}
+
+img {
+  width: 120px;
+  height: 100%;
+  border-radius: 1rem;
 }
