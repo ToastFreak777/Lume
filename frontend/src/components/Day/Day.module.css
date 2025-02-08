@@ -1,11 +1,31 @@
 .box {
   padding: 0.25rem;
-  height: 80px;
-  width: 80px;
+  height: 120px;
+  width: 100%;
 
-  /* display: grid;
-  grid-template-rows: 1fr 1fr; */
+  aspect-ratio: 1 / 1;
+
+  .day {
+    width: 1em;
+    height: 1em;
+    border-radius: 50%;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    padding: 0.725rem;
+    margin-block: 0.25rem;
+    font-weight: var(--fw-x-bold);
+  }
+
   .info {
+    position: absolute;
+    bottom: 5px;
+    left: 5px;
+    width: 100%;
+    color: black;
+
     .name {
       font-weight: var(--fw-bold);
     }
@@ -15,4 +35,26 @@
       font-size: var(--fs-300);
     }
   }
+}
+
+.language-arts {
+  background-color: hsl(260, 100%, 96%);
+  color: hsl(254, 100%, 79%);
+  border: 1px solid hsl(254, 100%, 79%);
+}
+
+.science {
+  background-color: hsl(91, 94%, 93%);
+  color: hsl(91, 57%, 65%);
+  border: 1px solid hsl(91, 57%, 65%);
+}
+
+.math {
+  background-color: hsl(216, 100%, 94%);
+  color: hsl(216, 100%, 76%);
+  border: 1px solid hsl(216, 100%, 76%);
+}
+
+.dayNumber {
+  background-color: white;
 }

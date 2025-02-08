@@ -3,7 +3,10 @@ const Card = ({ card }) => {
   return (
     <div className={styles.card}>
       <div className={styles.cardImage}>
-        <img src="" alt="class_picture" />
+        <img
+          src="https://www.svgrepo.com/show/508699/landscape-placeholder.svg"
+          alt="class_picture"
+        />
       </div>
       <div className={styles.cardContent}>
         <h2 className={styles.cardTitle}>{card.ClassName}</h2>
