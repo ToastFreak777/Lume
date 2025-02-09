@@ -1,5 +1,5 @@
 import { BrowserRouter, Routes, Route, Outlet } from "react-router";
-import { Grades, Home, Notes } from "./pages";
+import { Grades, Home, Login, Notes, Register } from "./pages";
 import { Navbar, Searchbar } from "./components";
 
 const Layout = () => (
@@ -30,6 +30,10 @@ function App() {
           <Route path="notes" element={<Notes />} />
           <Route path="settings" element={<UnderDevelopment />} />
           <Route path="logout" element={<UnderDevelopment />} />
+        </Route>
+        <Route path="/form">
+          <Route path="login" element={<Login />} />
+          <Route path="register" element={<Register />} />
         </Route>
       </Routes>
     </BrowserRouter>
