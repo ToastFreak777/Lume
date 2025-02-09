@@ -9,7 +9,7 @@
   .semester {
     padding: 0.5rem 2rem;
     border-radius: 2rem;
-    border: 1px solid var(--color-gray);
+    border: 1px solid var(--border-color);
     color: var(--color-gray);
   }
 
@@ -21,18 +21,26 @@
 }
 
 .progressContainer {
+
+  
   .progressBarContainer {
-    border: 1px solid var(--color-gray);
+    border: 1px solid var(--border-color);
     border-radius: 1rem;
 
-    margin-block: 1rem;
     padding: 1rem;
 
+
+
     .progressBarItem {
+
+      p {
+        margin: 0;
+      }
+      
       .progressBarTitle {
         font-weight: var(--fw-bold);
         margin-block: 1rem;
-    }
+      }
 
       .progressBar {
         background-color: hsl(0, 0%, 96%);

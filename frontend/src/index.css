@@ -23,7 +23,8 @@
   --fw-bold: 700;
   --fw-x-bold: 800;
 
-  --color-gray: #7b7b7b;
+  --color-gray: #a7a7a7;
+  --border-color: #e1e1e1;
 }
 
 html,
