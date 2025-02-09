@@ -1,0 +1,58 @@
+{
+  "classes": [
+    {
+      "id": "1",
+      "name": "Introduction to Maths",
+      "homework": 88,
+      "midTerm": 92,
+      "quizzes": 85,
+      "finalExam": 90,
+      "total": 89
+    },
+    {
+      "id": "2",
+      "name": "Science Basics",
+      "homework": null,
+      "midTerm": 58,
+      "quizzes": 70,
+      "finalExam": 25,
+      "total": 34
+    },
+    {
+      "id": "3",
+      "name": "Art History",
+      "homework": null,
+      "midTerm": 85,
+      "quizzes": 88,
+      "finalExam": 87,
+      "total": 87
+    },
+    {
+      "id": "4",
+      "name": "Math & Numbers",
+      "homework": 52,
+      "midTerm": null,
+      "quizzes": 84,
+      "finalExam": 75,
+      "total": 70
+    },
+    {
+      "id": "5",
+      "name": "English Writing",
+      "homework": 98,
+      "midTerm": 95,
+      "quizzes": 96,
+      "finalExam": 97,
+      "total": 96
+    },
+    {
+      "id": "6",
+      "name": "Introduction to Management",
+      "homework": 100,
+      "midTerm": 90,
+      "quizzes": 100,
+      "finalExam": null,
+      "total": null
+    }
+  ]
+}

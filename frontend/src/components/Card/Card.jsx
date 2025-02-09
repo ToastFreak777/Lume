@@ -4,6 +4,7 @@ const Card = ({ card }) => {
     <div className={styles.card}>
       <div className={styles.cardImage}>
         <img
+        className={styles.image}
           src="https://www.svgrepo.com/show/508699/landscape-placeholder.svg"
           alt="class_picture"
         />

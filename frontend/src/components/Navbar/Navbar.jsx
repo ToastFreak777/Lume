@@ -8,10 +8,22 @@ import { CgNotes } from "react-icons/cg";
 import { MdOutlineSettings } from "react-icons/md";
 import { MdLogout } from "react-icons/md";
 
+import { NavLink } from "react-router";
+
 const Navbar = () => {
-  const handleClick = (e) => {
-    console.log(e.target);
-  };
+  const toggleActive = ({ isActive }) =>
+    `${styles["tabs"]} ${styles["flex-group"]} ${
+      isActive ? styles.active : ""
+    }`;
+
+  const tabs = ["overview", "classes", "grades", "instructors", "notes"];
+  const icons = [
+    <FaTasks key="tasks" />,
+    <SiGoogleclassroom key="classroom" />,
+    <FaCheckCircle key="check" />,
+    <FaChalkboardTeacher key="teacher" />,
+    <CgNotes key="notes" />,
+  ];
 
   return (
     <nav className={styles.nav}>
@@ -29,41 +41,27 @@ const Navbar = () => {
         </div>
 
         <div className={styles["menu-tabs"]}>
-          <div
-            className={`${styles["overview"]} ${styles["flex-group"]} ${styles["active"]}`}
-            name="meeees"
-            onClick={handleClick}
-          >
-            <FaTasks />
-            <p>Overview</p>
-          </div>
-          <div className={`${styles["classes"]} ${styles["flex-group"]} `}>
-            <SiGoogleclassroom />
-            <p>Classes</p>
-          </div>
-          <div className={`${styles["grades"]} ${styles["flex-group"]}`}>
-            <FaCheckCircle />
-            <p>Grades</p>
-          </div>
-          <div className={`${styles["instructors"]} ${styles["flex-group"]}`}>
-            <FaChalkboardTeacher />
-            <p>Instructors</p>
-          </div>
-          <div className={`${styles["notes"]} ${styles["flex-group"]}`}>
-            <CgNotes />
-            <p>Notes</p>
-          </div>
+          {tabs.map((tab, i) => (
+            <NavLink
+              key={tab}
+              to={`/${tab == "overview" ? "" : tab}`}
+              className={toggleActive}
+            >
+              {icons[i]}
+              <p>{tab}</p>
+            </NavLink>
+          ))}
         </div>
       </div>
       <div className={styles["nav-footer"]}>
-        <div className={`${styles["settings"]} ${styles["flex-group"]}`}>
+        <NavLink to="/settings" className={toggleActive}>
           <MdOutlineSettings />
           <p>Settings</p>
-        </div>
-        <div className={`${styles["logout"]} ${styles["flex-group"]}`}>
+        </NavLink>
+        <NavLink to="/logout" className={toggleActive}>
           <MdLogout />
           <p>Log out</p>
-        </div>
+        </NavLink>
       </div>
     </nav>
   );

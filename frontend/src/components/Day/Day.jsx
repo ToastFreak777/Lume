@@ -1,8 +1,7 @@
 import styles from "./Day.module.css";
+import PropTypes from "prop-types";
 
 const Day = ({ assignment }) => {
-  console.log(assignment);
-
   return (
     <>
       {assignment?.id ? (
@@ -31,6 +30,17 @@ const Day = ({ assignment }) => {
       )}
     </>
   );
+};
+
+Day.propTypes = {
+  assignment: PropTypes.shape({
+    id: PropTypes.string,
+    subject: PropTypes.string,
+    day: PropTypes.number,
+    name: PropTypes.string,
+    courseCode: PropTypes.string,
+    dueDate: PropTypes.string,
+  }),
 };
 
 export default Day;

@@ -2,13 +2,6 @@ import styles from "./Dashboard.module.css";
 
 import { Card } from "../index";
 
-import {
-  MdNotificationsNone,
-  MdOutlineEmail,
-  MdOutlineSearch,
-} from "react-icons/md";
-import { FiMessageSquare } from "react-icons/fi";
-
 const Dashboard = () => {
   const cards = [
     {
@@ -43,20 +36,6 @@ const Dashboard = () => {
 
   return (
     <main className={styles.dashboard}>
-      <div className={styles.container}>
-        <h1 className={styles.title}>Overview</h1>
-        <div className={`${styles["searchbar-container"]}`}>
-          <div className={styles.searchbar}>
-            <MdOutlineSearch />
-            <input className={styles.search} type="text" placeholder="Search" />
-          </div>
-          <div className={styles.notifications}>
-            <MdNotificationsNone />
-            <MdOutlineEmail />
-            <FiMessageSquare />
-          </div>
-        </div>
-      </div>
       <div className={styles.content}>
         <div className={styles.classes}>
           {cards.map((card, index) => (

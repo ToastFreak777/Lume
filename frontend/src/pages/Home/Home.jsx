@@ -5,7 +5,7 @@ import styles from "./Home.module.css";
 const Home = () => {
   return (
     <div className={styles.container}>
-      <Navbar />
+      {/* <Navbar /> */}
       <div className={styles.mainContent}>
         <Dashboard />
         <Calendar />

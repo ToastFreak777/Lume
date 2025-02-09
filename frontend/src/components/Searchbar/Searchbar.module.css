@@ -1,0 +1,47 @@
+.container {
+  display: flex;
+  justify-content: space-between;
+
+  padding: 1.25rem 2rem;
+  border-bottom: 1px solid var(--color-gray);
+
+  .notifications {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+
+    color: var(--color-gray);
+    font-size: var(--fs-500);
+  }
+
+  .title {
+    text-transform: capitalize;
+    margin: 0;
+  }
+}
+
+.searchbar-container {
+  display: flex;
+  gap: 1rem;
+
+  .searchbar {
+    background: #f5f5f5;
+    border-radius: 0.725rem;
+    padding: 0.7rem 1rem;
+
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+
+    svg {
+      color: #e1e1e1;
+      font-size: var(--fs-500);
+    }
+
+    .search {
+      border: none;
+      outline: none;
+      background: inherit;
+    }
+  }
+}

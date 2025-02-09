@@ -1,0 +1,61 @@
+.container {
+  padding: 1rem;
+}
+
+.semesters {
+  display: flex;
+  gap: 1rem;
+
+  .semester {
+    padding: 0.5rem 2rem;
+    border-radius: 2rem;
+    border: 1px solid var(--color-gray);
+    color: var(--color-gray);
+  }
+
+  .active {
+    border-color: black;
+    color: black;
+    font-weight: var(--fw-x-bold);
+  }
+}
+
+.progressContainer {
+  .progressBarContainer {
+    border: 1px solid var(--color-gray);
+    border-radius: 1rem;
+
+    margin-block: 1rem;
+    padding: 1rem;
+
+    .progressBarItem {
+      .progressBarTitle {
+        font-weight: var(--fw-bold);
+        margin-block: 1rem;
+    }
+
+      .progressBar {
+        background-color: hsl(0, 0%, 96%);
+        border-radius: 0.5rem;
+        height: 0.5rem;
+        width: 100%;
+
+        .innerBar {
+          background-color: hsl(260, 100%, 81%);
+          height: 100%;
+          width: 0%;
+          border-radius: inherit;
+          transition: width 2s ease-out;
+        }
+      }
+
+      .progressBarInfo {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        color: var(--color-gray);
+        margin-block: 0.425rem;
+      }
+    }
+  }
+}

@@ -2,24 +2,32 @@
   display: flex;
   align-items: center;
   gap: 1rem;
-  padding: 0.425rem;
+  padding: 0.325rem;
+
 
   border: 2px solid var(--color-gray);
   border-radius: 1rem;
 
+  .cardImage {
+    flex-shrink: 0;
+    
+    img {
+      width: 150px;
+      height: 100%;
+      border-radius: 1rem;
+      object-fit: cover;
+    }
+  }
+
   .cardContent {
     .cardTitle {
+      margin: 0;
       font-weight: var(--fw-bold);
     }
 
     .cardSubtitle {
+      margin: 0;
       color: var(--color-gray);
     }
   }
-}
-
-img {
-  width: 120px;
-  height: 100%;
-  border-radius: 1rem;
 }

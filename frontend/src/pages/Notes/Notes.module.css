@@ -1,0 +1,74 @@
+.container {
+  /* padding: 1rem; */
+  background-color: blue;
+  height: 100%;
+
+  .notes {
+    border: 1px solid var(--color-gray);
+    border-radius: 1rem;
+
+    background-color: orange;
+
+    /* width: 100%;
+    height: 100%; */
+
+    .notesHeaderContainer {
+      border-bottom: 1px solid var(--color-gray);
+
+      .notesHeader {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        .notesTitle {
+          text-transform: capitalize;
+        }
+
+        .notesIcons {
+          font-size: var(--fs-600);
+          display: flex;
+          gap: 1rem;
+
+          svg {
+            cursor: pointer;
+          }
+        }
+      }
+
+      .profile {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+
+        margin-block: 0.5rem;
+
+        color: var(--color-gray);
+
+        img {
+          width: 2rem;
+          height: 2rem;
+          border-radius: 50%;
+        }
+      }
+    }
+
+    .notesContent {
+      width: 100%;
+      height: 100%;
+
+      .textarea {
+        width: fit-content;
+        height: fit-content;
+        /* text-decoration: none;
+        border: none;
+        outline: none; */
+        resize: none;
+      }
+    }
+
+    .notesHeaderContainer,
+    .notesContent {
+      padding: 1rem;
+    }
+  }
+}
