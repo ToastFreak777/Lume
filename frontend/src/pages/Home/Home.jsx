@@ -1,4 +1,4 @@
-import { Navbar, Dashboard, Calendar, Sidebar } from "../../components";
+import { Dashboard, Calendar, Sidebar } from "../../components";
 
 import styles from "./Home.module.css";
 

@@ -1,6 +1,7 @@
-import { BrowserRouter, Routes, Route, Outlet } from "react-router";
+import { createBrowserRouter, RouterProvider, Outlet } from "react-router";
 import { Grades, Home, Login, Notes, Register } from "./pages";
 import { Navbar, Searchbar } from "./components";
+// import { homeLoader } from "./lib/loaders";
 
 const Layout = () => (
   <div className="app">
@@ -19,25 +20,53 @@ const UnderDevelopment = () => (
 );
 
 function App() {
-  return (
-    <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<Layout />}>
-          <Route index element={<Home />} />
-          <Route path="classes" element={<UnderDevelopment />} />
-          <Route path="grades" element={<Grades />} />
-          <Route path="instructors" element={<UnderDevelopment />} />
-          <Route path="notes" element={<Notes />} />
-          <Route path="settings" element={<UnderDevelopment />} />
-          <Route path="logout" element={<UnderDevelopment />} />
-        </Route>
-        <Route path="/form">
-          <Route path="login" element={<Login />} />
-          <Route path="register" element={<Register />} />
-        </Route>
-      </Routes>
-    </BrowserRouter>
-  );
+  const router = createBrowserRouter([
+    {
+      path: "/",
+      element: <Layout />,
+      children: [
+        {
+          path: "/",
+          element: <Home />,
+          // loader: homeLoader,
+        },
+        {
+          path: "classes",
+          element: <UnderDevelopment />,
+        },
+        {
+          path: "grades",
+          element: <Grades />,
+        },
+        {
+          path: "instructors",
+          element: <UnderDevelopment />,
+        },
+        {
+          path: "notes",
+          element: <Notes />,
+        },
+        {
+          path: "settings",
+          element: <UnderDevelopment />,
+        },
+        {
+          path: "logout",
+          element: <UnderDevelopment />,
+        },
+      ],
+    },
+    {
+      path: "/login",
+      element: <Login />,
+    },
+    {
+      path: "/register",
+      element: <Register />,
+    },
+  ]);
+
+  return <RouterProvider router={router} />;
 }
 
 export default App;

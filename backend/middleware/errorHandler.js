@@ -4,7 +4,7 @@ const errorHandler = (err, req, res, next) => {
   if (err instanceof CustomAPIError) {
     return res.status(err.statusCode).json({
       msg: err.message,
-      stack: process.env.NODE_ENV === "PRODUCTION" ? null : err.stack,
+      ...(process.env.NODE_ENV === "DEVELOPMENT" && { stack: err.stack }),
     });
   }
 
@@ -26,7 +26,7 @@ const errorHandler = (err, req, res, next) => {
 
   return res.status(500).json({
     msg: "Something went wrong",
-    stack: process.env.NODE_ENV === "PRODUCTION" ? null : err.stack,
+    ...(process.env.NODE_ENV === "DEVELOPMENT" && { stack: err.stack }),
   });
 };
 
