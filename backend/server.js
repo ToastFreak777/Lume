@@ -4,7 +4,7 @@ import "express-async-errors";
 
 // Security packages
 import helmet from "helmet";
-// import cors from "cors";
+import cors from "cors";
 // import xss from "xss-clean";
 // import rateLimit from "express-rate-limit";
 // import compression from "compression";
@@ -16,10 +16,23 @@ const app = express();
 
 // Logger
 import morgan from "morgan";
-app.use(morgan("dev"));
 
 // Database connection
 import connectDB from "./db/connect.js";
+
+app.use([
+  morgan("dev"),
+  cors({ origin: process.env.CLIENT_URL, credentials: true }),
+  express.json(),
+  helmet(),
+  cookieParser(process.env.COOKIE_SECRET),
+  // rateLimit({
+  //   windowMs: 15 * 60 * 1000,
+  //   max: 100,
+  // }),
+  // xss(),
+  // compression(),
+]);
 
 // Middleware
 import errorHandler from "./middleware/errorHandler.js";
@@ -41,19 +54,6 @@ app.use("/api/grades", gradesRouter);
 app.use("/api/notifications", notificationsRouter);
 app.use("/api/assignments", assignmentsRouter);
 app.use("/api/attendance", attendanceRouter);
-
-app.use([
-  // rateLimit({
-  //   windowMs: 15 * 60 * 1000,
-  //   max: 100,
-  // }),
-  express.json(),
-  helmet(),
-  // cors(),
-  // xss(),
-  // compression(),
-  cookieParser(process.env.COOKIE_SECRET),
-]);
 
 app.use([notFound, errorHandler]);
 

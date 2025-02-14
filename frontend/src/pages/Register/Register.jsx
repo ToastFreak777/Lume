@@ -1,7 +1,43 @@
+import { useState } from "react";
+import { useNavigate } from "react-router";
 import styles from "./Register.module.css";
 import { Link } from "react-router";
+import { registerUser } from "../../lib/api";
 
 const Register = () => {
+  const navigate = useNavigate();
+
+  const [formData, setFormData] = useState({
+    firstName: "",
+    lastName: "",
+    dob: "",
+    gender: "",
+    role: "",
+    email: "",
+    phone: "",
+    password: "",
+  });
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    try {
+      await registerUser(formData);
+      navigate("/login");
+    } catch (error) {
+      console.error(`Error message: ${error.message}`);
+      console.error(error.data);
+    }
+  };
+
   return (
     <div className={styles.container}>
       <div className={styles.formContainer}>
@@ -15,26 +51,78 @@ const Register = () => {
           Create your student account to get started
         </p>
 
-        <form className={styles.form}>
+        <form className={styles.form} onSubmit={handleSubmit}>
           <div className={styles.nameGroup}>
             <div className={styles.inputGroup}>
               <label htmlFor="firstName">First Name</label>
-              <input type="text" id="firstName" placeholder="John" required />
+              <input
+                type="text"
+                id="firstName"
+                name="firstName"
+                placeholder="John"
+                value={formData.firstName}
+                onChange={handleChange}
+                required
+              />
             </div>
             <div className={styles.inputGroup}>
               <label htmlFor="lastName">Last Name</label>
-              <input type="text" id="lastName" placeholder="Doe" required />
+              <input
+                type="text"
+                id="lastName"
+                name="lastName"
+                placeholder="Doe"
+                value={formData.lastName}
+                onChange={handleChange}
+                required
+              />
             </div>
           </div>
 
           <div className={styles.inputGroup}>
-            <label htmlFor="studentId">Student ID</label>
+            <label htmlFor="dob">Date of Birth</label>
             <input
-              type="text"
-              id="studentId"
-              placeholder="Enter your student ID"
+              type="date"
+              id="dob"
+              name="dob"
+              value={formData.dob}
+              onChange={handleChange}
               required
             />
+          </div>
+
+          <div className={styles.inputGroup}>
+            <label htmlFor="gender">Gender</label>
+            <select
+              id="gender"
+              name="gender"
+              value={formData.gender}
+              onChange={handleChange}
+              required
+              className={styles.select}
+            >
+              <option value="">Select gender</option>
+              <option value="male">Male</option>
+              <option value="female">Female</option>
+              <option value="other">Other</option>
+            </select>
+          </div>
+
+          <div className={styles.inputGroup}>
+            <label htmlFor="gender">Role</label>
+            <select
+              id="role"
+              name="role"
+              value={formData.role}
+              onChange={handleChange}
+              required
+              className={styles.select}
+            >
+              <option value="">Select role</option>
+              <option value="Student">Student</option>
+              <option value="Parent">Parent</option>
+              <option value="Instructor">Instructor</option>
+            </select>
           </div>
 
           <div className={styles.inputGroup}>
@@ -42,7 +130,24 @@ const Register = () => {
             <input
               type="email"
               id="email"
+              name="email"
               placeholder="student.name@school.edu"
+              value={formData.email}
+              onChange={handleChange}
+              required
+            />
+          </div>
+
+          <div className={styles.inputGroup}>
+            <label htmlFor="phone">Phone Number</label>
+            <input
+              type="tel"
+              id="phone"
+              name="phone"
+              placeholder="0770000000"
+              value={formData.phone}
+              onChange={handleChange}
+              pattern="[0-9]{10}"
               required
             />
           </div>
@@ -52,7 +157,11 @@ const Register = () => {
             <input
               type="password"
               id="password"
+              name="password"
               placeholder="••••••••"
+              value={formData.password}
+              onChange={handleChange}
+              minLength="6"
               required
             />
           </div>
@@ -64,7 +173,7 @@ const Register = () => {
 
         <p className={styles.login}>
           Already enrolled?
-          <Link to="/form/login"> Sign in to your account</Link>
+          <Link to="/login"> Sign in to your account</Link>
         </p>
       </div>
     </div>

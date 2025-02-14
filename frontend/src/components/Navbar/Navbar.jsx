@@ -1,3 +1,7 @@
+import { NavLink } from "react-router";
+
+import useAuth from "../../hooks/useAuth";
+
 import styles from "./Navbar.module.css";
 
 import { FaTasks } from "react-icons/fa";
@@ -8,9 +12,9 @@ import { CgNotes } from "react-icons/cg";
 import { MdOutlineSettings } from "react-icons/md";
 import { MdLogout } from "react-icons/md";
 
-import { NavLink } from "react-router";
-
 const Navbar = () => {
+  const { currentUser, handleLogout } = useAuth();
+
   const toggleActive = ({ isActive }) =>
     `${styles["tabs"]} ${styles["flex-group"]} ${
       isActive ? styles.active : ""
@@ -35,8 +39,10 @@ const Navbar = () => {
             alt="profile-pic"
           />
           <div className={styles["profile-info"]}>
-            <p className={styles["profile-user-name"]}>John Doe</p>
-            <p className={styles["profile-user-email"]}>k.east@student.com</p>
+            <p className={styles["profile-user-name"]}>
+              {currentUser?.firstName} {currentUser?.lastName}
+            </p>
+            <p className={styles["profile-user-email"]}>{currentUser?.email}</p>
           </div>
         </div>
 
@@ -58,7 +64,7 @@ const Navbar = () => {
           <MdOutlineSettings />
           <p>Settings</p>
         </NavLink>
-        <NavLink to="/logout" className={toggleActive}>
+        <NavLink to="" className={toggleActive} onClick={handleLogout}>
           <MdLogout />
           <p>Log out</p>
         </NavLink>

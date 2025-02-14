@@ -1,7 +1,45 @@
+import { useState, useContext } from "react";
 import styles from "./Login.module.css";
-import { Link } from "react-router";
+import { Link, useNavigate } from "react-router";
+import { loginUser, verifyAuth } from "../../lib/api";
+import { AuthContext } from "../../context/AuthContext";
 
 const Login = () => {
+  const [formData, setFormData] = useState({
+    email: "kwuu@njcu.edu",
+    password: "111111",
+    checked: false,
+  });
+
+  const { updateCurrentUser } = useContext(AuthContext);
+
+  const navigate = useNavigate();
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    try {
+      await loginUser(formData);
+
+      const userData = await verifyAuth();
+
+      updateCurrentUser(userData);
+      navigate("/");
+    } catch (error) {
+      console.error(`Error message: ${error.message}`);
+      console.error(error.data);
+    }
+  };
+
+  const handleChange = (e) => {
+    const { name, value, type, checked } = e.target;
+
+    setFormData((prev) => ({
+      ...prev,
+      [name]: type === "checkbox" ? checked : value,
+    }));
+  };
+
   return (
     <div className={styles.container}>
       <div className={styles.formContainer}>
@@ -15,12 +53,15 @@ const Login = () => {
           Sign in to access your academic dashboard
         </p>
 
-        <form className={styles.form}>
+        <form className={styles.form} onSubmit={handleSubmit}>
           <div className={styles.inputGroup}>
             <label htmlFor="email">Student Email</label>
             <input
               type="email"
               id="email"
+              name="email"
+              value={formData.email}
+              onChange={handleChange}
               placeholder="student.name@school.edu"
               required
             />
@@ -31,6 +72,9 @@ const Login = () => {
             <input
               type="password"
               id="password"
+              name="password"
+              value={formData.password}
+              onChange={handleChange}
               placeholder="••••••••"
               required
             />
@@ -38,7 +82,13 @@ const Login = () => {
 
           <div className={styles.options}>
             <label className={styles.remember}>
-              <input type="checkbox" />
+              <input
+                type="checkbox"
+                id="checked"
+                name="checked"
+                checked={formData.checked}
+                onChange={handleChange}
+              />
               Keep me signed in
             </label>
             <a href="#" className={styles.forgot}>
@@ -53,7 +103,7 @@ const Login = () => {
 
         <p className={styles.signup}>
           New student?
-          <Link to="/form/register"> Create your account</Link>
+          <Link to="/register"> Create your account</Link>
         </p>
       </div>
     </div>

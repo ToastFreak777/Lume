@@ -1,22 +1,23 @@
-import { createCustomError } from "../errors/custom-error";
+import { StatusCodes } from "http-status-codes";
+import { createCustomError } from "../errors/custom-error.js";
+import jwt from "jsonwebtoken";
 
-const authenticationMiddleware = async (req, res, next) => {
-  const authHeader = req.headers.authorization;
-  if (!authHeader || !authHeader.startsWith("Bearer ")) {
-    throw createCustomError("No token provided", StatusCodes.UNAUTHORIZED);
+const authMiddleware = async (req, res, next) => {
+  const token = req.cookies.token;
+
+  if (!token) {
+    return next(createCustomError("Invalid token", StatusCodes.UNAUTHORIZED));
   }
-  const token = authHeader.split(" ")[1];
 
   try {
     const payload = jwt.verify(token, process.env.JWT_SECRET);
-    req.user = { id: payload._id, name: payload.first_name };
+    req.user = { userId: payload.userId, name: payload.name };
     next();
   } catch (error) {
-    throw createCustomError(
-      "Not authorized to access this route",
-      StatusCodes.UNAUTHORIZED
+    return next(
+      createCustomError("Authentication failed", StatusCodes.UNAUTHORIZED)
     );
   }
 };
 
-export default authenticationMiddleware;
+export default authMiddleware;

@@ -11,12 +11,12 @@ const UsersSchema = new mongoose.Schema(
       required: [true, "Please provide a role for this user"],
       trim: true,
     },
-    first_name: {
+    firstName: {
       type: String,
       required: [true, "Please provide a first name for this user"],
       trim: true,
     },
-    last_name: {
+    lastName: {
       type: String,
       required: [true, "Please provide a last name for this user"],
       trim: true,
@@ -27,6 +27,20 @@ const UsersSchema = new mongoose.Schema(
       unique: true,
       index: true,
       match: [/^\S+@\S+\.\S+$/, "Please provide a valid email address"],
+    },
+    dob: {
+      type: Date,
+      required: [true, "Please provide a date of birth for this user"],
+    },
+    gender: {
+      type: String,
+      required: [true, "Please provide a gender for this user"],
+      enum: ["male", "female", "other"],
+    },
+    phone: {
+      type: String,
+      required: [true, "Please provide a phone number for this user"],
+      match: [/^\d{10}$/, "Please provide a valid phone number"],
     },
     password: {
       type: String,
@@ -75,12 +89,16 @@ UsersSchema.pre("save", async function (next) {
 });
 
 UsersSchema.methods.generateToken = function () {
-  return jwt.sign({ userId: this._id }, process.env.JWT_SECRET, {
-    expiresIn: process.env.JWT_EXPIRE_TIME,
-  });
+  return jwt.sign(
+    { userId: this._id, isAdmin: this.role === "Admin" },
+    process.env.JWT_SECRET,
+    {
+      expiresIn: process.env.JWT_EXPIRE_TIME,
+    }
+  );
 };
 
-UsersSchema.methods.verifyToken = async function (candidatePassword) {
+UsersSchema.methods.verifyPassword = async function (candidatePassword) {
   return await bcrypt.compare(candidatePassword, this.password);
 };
 
