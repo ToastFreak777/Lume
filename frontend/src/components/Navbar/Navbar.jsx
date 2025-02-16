@@ -20,7 +20,7 @@ const Navbar = () => {
       isActive ? styles.active : ""
     }`;
 
-  const tabs = ["overview", "classes", "grades", "instructors", "notes"];
+  const tabs = ["overview", "courses", "grades", "messages", "notes"];
   const icons = [
     <FaTasks key="tasks" />,
     <SiGoogleclassroom key="classroom" />,
@@ -60,11 +60,15 @@ const Navbar = () => {
         </div>
       </div>
       <div className={styles["nav-footer"]}>
-        <NavLink to="/settings" className={toggleActive}>
+        {/* <NavLink to="/settings" className={toggleActive}>
           <MdOutlineSettings />
           <p>Settings</p>
-        </NavLink>
-        <NavLink to="" className={toggleActive} onClick={handleLogout}>
+        </NavLink> */}
+        <NavLink
+          to=""
+          className={`${styles["flex-group"]}`}
+          onClick={handleLogout}
+        >
           <MdLogout />
           <p>Log out</p>
         </NavLink>

@@ -1,0 +1,32 @@
+.container {
+  padding: 1rem 2rem;
+}
+
+.tags {
+  display: flex;
+  gap: 1rem;
+
+  .tag {
+    padding: 0.5rem 2rem;
+    border-radius: 2rem;
+    border: 1px solid var(--border-color);
+    color: var(--color-gray);
+  }
+
+  .active {
+    border-color: black;
+    color: black;
+    font-weight: var(--fw-x-bold);
+  }
+}
+
+.profiles {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1rem;
+
+
+  .profile {
+    max-width: 300px;
+  }
+}

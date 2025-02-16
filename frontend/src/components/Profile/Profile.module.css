@@ -1,0 +1,56 @@
+.container {
+  border: 1px solid var(--border-color);
+  padding: 2rem;
+  margin-top: 1rem;
+
+  width: 100%;
+  border-radius: 1rem;
+
+  text-align: center;
+
+  .userInfo {
+    width: 100%;
+
+    img {
+      --img-size: 7rem;
+
+      width: var(--img-size);
+      height: var(--img-size);
+      border-radius: 50%;
+    }
+
+    p {
+      margin-block: 0.5rem;
+    }
+
+    .name {
+      font-weight: var(--fw-x-bold);
+      color: black;
+    }
+
+    .email {
+      font-weight: var(--fw-l);
+      color: var(--color-gray);
+      text-decoration: underline;
+    }
+  }
+
+  .actions {
+    margin-top: 2rem;
+
+    button {
+      cursor: pointer;
+      font-size: var(--fs-500);
+      font-weight: var(--fw-x-bold);
+
+      padding: 0.725rem 2.5rem;
+      border-radius: 2rem;
+      border: 1px solid var(--border-color);
+      background: inherit;
+
+      &:hover {
+        background: var(--border-color);
+      }
+    }
+  }
+}

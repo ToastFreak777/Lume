@@ -1,12 +1,22 @@
 import { useContext } from "react";
 import { AuthContext } from "../../context/AuthContext";
+import { Navigate, useLocation } from "react-router";
+import Loading from "../Loading/Loading";
+const ProtectedRoute = ({ children }) => {
+  const { currentUser, isLoading } = useContext(AuthContext);
+  const location = useLocation();
 
-const ProtectedRoute = () => {
-  const { currentUser } = useContext(AuthContext);
+  if (isLoading) {
+    return <Loading />;
+  }
 
-  // if (!currentUser) {}
+  if (!currentUser) {
+    return <Navigate to="/login" state={{ from: location }} replace />;
+  }
 
-  return <div>ProtectedRoute</div>;
+  return children;
 };
 
 export default ProtectedRoute;
+
+ProtectedRoute.prototype = {};

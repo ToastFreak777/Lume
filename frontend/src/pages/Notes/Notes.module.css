@@ -26,6 +26,7 @@
 
         .notesIcons {
           font-size: var(--fs-600);
+          color: var(--color-gray);
 
           svg {
             cursor: pointer;

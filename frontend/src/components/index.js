@@ -8,6 +8,9 @@ import Calendar from "./Calendar/Calendar";
 import Day from "./Day/Day";
 import Searchbar from "./Searchbar/Searchbar";
 import ClassList from "./ClassList/ClassList";
+import ProtectedRoute from "./ProtectedRoute/ProtectedRoute";
+import Loading from "./Loading/Loading";
+import Profile from "./Profile/Profile";
 
 export {
   Navbar,
@@ -20,4 +23,7 @@ export {
   Day,
   Searchbar,
   ClassList,
+  ProtectedRoute,
+  Loading,
+  Profile,
 };

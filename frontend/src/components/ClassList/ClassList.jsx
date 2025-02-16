@@ -25,8 +25,8 @@ const ClassList = () => {
         <p>Final Exam</p>
         <p>Total</p>
       </div>
-      {classes.map((c) => (
-        <div className={styles.classes} key={c}>
+      {classes.map((c, i) => (
+        <div className={styles.classes} key={i}>
           <p className={styles.className}>{c.name}</p>
           <p className={styles.homework}>{checkField(c.homework)}</p>
           <p className={styles.midTerm}>{checkField(c.midTerm)}</p>

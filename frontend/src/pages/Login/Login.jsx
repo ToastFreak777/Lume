@@ -1,6 +1,6 @@
-import { useState, useContext } from "react";
+import { useState, useContext, useEffect } from "react";
 import styles from "./Login.module.css";
-import { Link, useNavigate } from "react-router";
+import { Link, useNavigate, useLocation } from "react-router";
 import { loginUser, verifyAuth } from "../../lib/api";
 import { AuthContext } from "../../context/AuthContext";
 
@@ -11,9 +11,17 @@ const Login = () => {
     checked: false,
   });
 
-  const { updateCurrentUser } = useContext(AuthContext);
+  const { currentUser, updateCurrentUser, isLoading } = useContext(AuthContext);
 
   const navigate = useNavigate();
+  const location = useLocation();
+
+  useEffect(() => {
+    if (!isLoading && currentUser) {
+      const from = location.state?.from?.pathname || "/";
+      navigate(from);
+    }
+  }, [currentUser, navigate, location, isLoading]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -24,7 +32,9 @@ const Login = () => {
       const userData = await verifyAuth();
 
       updateCurrentUser(userData);
-      navigate("/");
+
+      const from = location.state?.from?.pathname || "/";
+      navigate(from);
     } catch (error) {
       console.error(`Error message: ${error.message}`);
       console.error(error.data);

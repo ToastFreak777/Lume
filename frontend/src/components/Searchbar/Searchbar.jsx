@@ -18,10 +18,17 @@ const Searchbar = () => {
         {pathname === "/" ? "Overview" : pathname.split("/")[1]}
       </h1>
       <div className={`${styles["searchbar-container"]}`}>
-        <div className={styles.searchbar}>
+        {/* <div className={styles.searchbar}>
           <MdOutlineSearch />
           <input className={styles.search} type="text" placeholder="Search" />
-        </div>
+        </div> */}
+
+        {(pathname === "/courses" || pathname === "/grades") && (
+          <div className={styles.searchbar}>
+            <MdOutlineSearch />
+            <input className={styles.search} type="text" placeholder="Search" />
+          </div>
+        )}
         <div className={styles.notifications}>
           <MdNotificationsNone />
           <MdOutlineEmail />

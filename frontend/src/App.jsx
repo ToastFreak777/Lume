@@ -1,6 +1,14 @@
 import { createBrowserRouter, RouterProvider, Outlet } from "react-router";
-import { Grades, Home, Login, Notes, Register } from "./pages";
-import { Navbar, Searchbar } from "./components";
+import {
+  Grades,
+  Home,
+  Login,
+  Notes,
+  Register,
+  Courses,
+  Messages,
+} from "./pages";
+import { Navbar, Searchbar, ProtectedRoute } from "./components";
 // import { homeLoader } from "./lib/loaders";
 
 const Layout = () => (
@@ -13,17 +21,15 @@ const Layout = () => (
   </div>
 );
 
-const UnderDevelopment = () => (
-  <div className="underDevelopment">
-    <h1>Under Development</h1>
-  </div>
-);
-
 function App() {
   const router = createBrowserRouter([
     {
       path: "/",
-      element: <Layout />,
+      element: (
+        <ProtectedRoute>
+          <Layout />
+        </ProtectedRoute>
+      ),
       children: [
         {
           path: "/",
@@ -31,28 +37,20 @@ function App() {
           // loader: homeLoader,
         },
         {
-          path: "classes",
-          element: <UnderDevelopment />,
+          path: "courses",
+          element: <Courses />,
         },
         {
           path: "grades",
           element: <Grades />,
         },
         {
-          path: "instructors",
-          element: <UnderDevelopment />,
+          path: "messages",
+          element: <Messages />,
         },
         {
           path: "notes",
           element: <Notes />,
-        },
-        {
-          path: "settings",
-          element: <UnderDevelopment />,
-        },
-        {
-          path: "logout",
-          element: <UnderDevelopment />,
         },
       ],
     },

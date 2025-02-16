@@ -8,10 +8,11 @@
   .notifications {
     display: flex;
     align-items: center;
-    gap: 1rem;
+    gap: 1.15rem;
 
     color: var(--color-gray);
-    font-size: var(--fs-500);
+    font-size: var(--fs-600);
+    cursor: pointer;
   }
 
   .title {

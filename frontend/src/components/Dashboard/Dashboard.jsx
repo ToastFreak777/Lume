@@ -39,7 +39,7 @@ const Dashboard = () => {
       <div className={styles.content}>
         <div className={styles.classes}>
           {cards.map((card, index) => (
-            <Card key={index} card={card} />
+            <Card key={index} card={card} className={styles.class} />
           ))}
         </div>
       </div>

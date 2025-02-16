@@ -1,0 +1,85 @@
+{
+  "courses": [
+    {
+      "id": "CS101",
+      "name": "Introduction to Computer Science",
+      "startDate": "2024-01-15",
+      "endDate": "2024-05-15",
+      "schedule": {
+        "day": "Monday",
+        "time": "09:00",
+        "duration": "90",
+        "room": "Lab 301"
+      },
+      "instructor": {
+        "id": "INS001",
+        "name": "Dr. Sarah Johnson",
+        "email": "s.johnson@school.edu",
+        "office": "Room 405"
+      },
+      "type": "Hybrid",
+      "capacity": {
+        "total": 30,
+        "enrolled": 25,
+        "available": 5
+      },
+      "description": "Fundamental concepts of programming and computer science",
+      "prerequisites": ["None"],
+      "status": "Active"
+    },
+    {
+      "id": "MATH201",
+      "name": "Advanced Calculus",
+      "startDate": "2024-01-16",
+      "endDate": "2024-05-16",
+      "schedule": {
+        "day": "Tuesday",
+        "time": "11:00",
+        "duration": "120",
+        "room": "Hall 201"
+      },
+      "instructor": {
+        "id": "INS002",
+        "name": "Prof. Michael Chen",
+        "email": "m.chen@school.edu",
+        "office": "Room 302"
+      },
+      "type": "In-Person",
+      "capacity": {
+        "total": 25,
+        "enrolled": 23,
+        "available": 2
+      },
+      "description": "Advanced topics in calculus and mathematical analysis",
+      "prerequisites": ["MATH101", "MATH102"],
+      "status": "Active"
+    },
+    {
+      "id": "ENG301",
+      "name": "Creative Writing",
+      "startDate": "2024-01-17",
+      "endDate": "2024-05-17",
+      "schedule": {
+        "day": "Wednesday",
+        "time": "14:00",
+        "duration": "90",
+        "room": "Room 105"
+      },
+      "instructor": {
+        "id": "INS003",
+        "name": "Prof. Emily Brown",
+        "email": "e.brown@school.edu",
+        "office": "Room 203"
+      },
+      "type": "Online",
+      "capacity": {
+        "total": 20,
+        "enrolled": 15,
+        "available": 5
+      },
+      "description": "Exploring creative writing techniques and styles",
+      "prerequisites": ["ENG101"],
+      "status": "Active"
+    }
+  ]
+}
