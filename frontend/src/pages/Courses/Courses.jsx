@@ -1,6 +1,9 @@
 import styles from "./Courses.module.css";
 
-import { NavLink, useSearchParams } from "react-router";
+import { useContext } from "react";
+import { NavLink, useSearchParams, useLoaderData } from "react-router";
+
+import { AuthContext } from "../../context/AuthContext";
 
 const COURSE_LIST = [
   { id: "CS226", label: "CS226" },
@@ -12,7 +15,10 @@ const COURSE_LIST = [
 import { courses } from "../../util/courses.json";
 
 const Courses = () => {
+  const { currentUser } = useContext(AuthContext);
   const [searchParams, setSearchParams] = useSearchParams();
+  const data = useLoaderData();
+  console.log(data);
 
   const getCourseName = (course) => {
     const currentCourse = searchParams.get("course");
@@ -21,16 +27,25 @@ const Courses = () => {
 
   return (
     <div className={styles.container}>
-      <div className={styles.courses}>
-        {COURSE_LIST.map(({ id, label }) => (
-          <NavLink
-            key={id}
-            to={`/courses?course=${id}`}
-            className={getCourseName(id)}
-          >
-            {label}
-          </NavLink>
-        ))}
+      <div className={styles.wrapper}>
+        <div className={styles.courses}>
+          {COURSE_LIST.map(({ id, label }) => (
+            <NavLink
+              key={id}
+              to={`/courses?course=${id}`}
+              className={getCourseName(id)}
+            >
+              {label}
+            </NavLink>
+          ))}
+        </div>
+        {currentUser?.role === "Admin" && (
+          <div className={styles.buttons}>
+            <NavLink to="/courses/new" className={styles.crudButton}>
+              Add
+            </NavLink>
+          </div>
+        )}
       </div>
 
       <div className={styles.classList}>

@@ -7,10 +7,10 @@ const AttendanceSchema = new mongoose.Schema(
       ref: "Users",
       required: [true, "Please provide a user id for this attendance record"],
     },
-    classId: {
+    courseId: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: "Classes",
-      required: [true, "Please provide a class id for this attendance record"],
+      ref: "Courses",
+      required: [true, "Please provide a course id for this attendance record"],
     },
     date: {
       type: Date,

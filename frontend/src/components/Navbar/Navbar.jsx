@@ -9,7 +9,7 @@ import { SiGoogleclassroom } from "react-icons/si";
 import { FaCheckCircle } from "react-icons/fa";
 import { FaChalkboardTeacher } from "react-icons/fa";
 import { CgNotes } from "react-icons/cg";
-import { MdOutlineSettings } from "react-icons/md";
+// import { MdOutlineSettings } from "react-icons/md";
 import { MdLogout } from "react-icons/md";
 
 const Navbar = () => {

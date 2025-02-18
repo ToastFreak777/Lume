@@ -6,10 +6,11 @@ import {
   Notes,
   Register,
   Courses,
+  NewCourse,
   Messages,
 } from "./pages";
 import { Navbar, Searchbar, ProtectedRoute } from "./components";
-// import { homeLoader } from "./lib/loaders";
+import { courseLoader, newCourseLoader } from "./util/loaders";
 
 const Layout = () => (
   <div className="app">
@@ -34,11 +35,11 @@ function App() {
         {
           path: "/",
           element: <Home />,
-          // loader: homeLoader,
         },
         {
           path: "courses",
           element: <Courses />,
+          loader: courseLoader,
         },
         {
           path: "grades",
@@ -61,6 +62,11 @@ function App() {
     {
       path: "/register",
       element: <Register />,
+    },
+    {
+      path: "courses/new",
+      element: <NewCourse />,
+      loader: newCourseLoader,
     },
   ]);
 

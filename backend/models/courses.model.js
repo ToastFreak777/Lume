@@ -1,21 +1,27 @@
 import mongoose from "mongoose";
 
-const ClassesSchema = new mongoose.Schema(
+const CoursesSchema = new mongoose.Schema(
   {
-    className: {
+    name: {
       type: String,
-      required: [true, "Please provide a name for this class"],
       trim: true,
+      required: [true, "Please provide a name for this class"],
     },
     instructorId: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "Users",
       required: [true, "Please provide a instructor id for this class"],
     },
-
     subject: {
-      type: String,
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Subjects",
       required: [true, "Please provide a subject for this class"],
+    },
+    level: {
+      type: Number,
+      min: 100,
+      max: 500,
+      required: [true, "Please provide a level for this class"],
     },
     semester: {
       type: String,
@@ -32,22 +38,32 @@ const ClassesSchema = new mongoose.Schema(
       type: [String],
       default: [],
     },
+    startDate: {
+      type: Date,
+      required: [true, "Please provide a start date for this class"],
+    },
+    endDate: {
+      type: Date,
+      required: [true, "Please provide a end date for this class"],
+    },
     academicYear: {
       type: String,
       required: true,
       match: [/^\d{4}-\d{4}$/, "Use format YYYY-YYYY"],
     },
-    courseCode: {
+    classCode: {
       type: String,
-      required: [true, "Please provide a course code for this class"],
       trim: true,
+      required: [true, "Please provide a course code for this class"],
     },
     credits: {
       type: Number,
+      min: 1,
       required: [true, "Please provide a credit for this class"],
     },
     capacity: {
       type: Number,
+      min: 1,
       required: [true, "Please provide a capacity for this class"],
     },
     description: String,
@@ -55,4 +71,4 @@ const ClassesSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
-export default mongoose.model("Classes", ClassesSchema);
+export default mongoose.model("Courses", CoursesSchema);

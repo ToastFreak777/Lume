@@ -15,7 +15,7 @@ Lume is a powerful, real-time **School Analytics Dashboard** that provides dynam
 - [ ] **Real-time Data Visualization**
   - Interactive charts and graphs to display **student performance**, **attendance rates**, and more
   - **Trend analysis** for student grades and attendance
-- [ ] **User Authentication**
+- [X] **User Authentication**
   - Secure login/signup with **role-based access**
   - Password recovery for users
 - [ ] **Role-Based Access Control**

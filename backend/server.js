@@ -22,7 +22,10 @@ import connectDB from "./db/connect.js";
 
 app.use([
   morgan("dev"),
-  cors({ origin: process.env.CLIENT_URL, credentials: true }),
+  cors({
+    origin: process.env.CLIENT_URL,
+    credentials: true,
+  }),
   express.json(),
   helmet(),
   cookieParser(process.env.COOKIE_SECRET),
@@ -41,19 +44,21 @@ import notFound from "./middleware/notFound.js";
 // Routers
 import authRouter from "./routes/auth.route.js";
 import usersRouter from "./routes/users.route.js";
-import classesRouter from "./routes/classes.route.js";
+import coursesRouter from "./routes/courses.route.js";
 import assignmentsRouter from "./routes/assignments.route.js";
 import attendanceRouter from "./routes/attendance.route.js";
 import gradesRouter from "./routes/grades.route.js";
 import notificationsRouter from "./routes/notifications.route.js";
+import subjectsRouter from "./routes/subjects.route.js";
 
 app.use("/api/auth", authRouter);
 app.use("/api/users", usersRouter);
-app.use("/api/classes", classesRouter);
+app.use("/api/courses", coursesRouter);
 app.use("/api/grades", gradesRouter);
 app.use("/api/notifications", notificationsRouter);
 app.use("/api/assignments", assignmentsRouter);
 app.use("/api/attendance", attendanceRouter);
+app.use("/api/subjects", subjectsRouter);
 
 app.use([notFound, errorHandler]);
 

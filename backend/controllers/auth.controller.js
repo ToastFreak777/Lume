@@ -109,7 +109,7 @@ export const login = async (req, res, next) => {
   res
     .cookie("token", token, {
       httpOnly: true,
-      // secure: true,
+      secure: process.env.NODE_ENV === "production",
       maxAge: ms(process.env.JWT_EXPIRE_TIME),
     })
     .status(StatusCodes.OK)

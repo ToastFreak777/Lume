@@ -1,12 +1,12 @@
 import { useState, useContext, useEffect } from "react";
 import styles from "./Login.module.css";
 import { Link, useNavigate, useLocation } from "react-router";
-import { loginUser, verifyAuth } from "../../lib/api";
+import { authService } from "../../services";
 import { AuthContext } from "../../context/AuthContext";
 
 const Login = () => {
   const [formData, setFormData] = useState({
-    email: "kwuu@njcu.edu",
+    email: "admin@school.edu",
     password: "111111",
     checked: false,
   });
@@ -27,9 +27,9 @@ const Login = () => {
     e.preventDefault();
 
     try {
-      await loginUser(formData);
+      await authService.login(formData);
 
-      const userData = await verifyAuth();
+      const userData = await authService.verify();
 
       updateCurrentUser(userData);
 
@@ -38,6 +38,7 @@ const Login = () => {
     } catch (error) {
       console.error(`Error message: ${error.message}`);
       console.error(error.data);
+      console.info(error);
     }
   };
 

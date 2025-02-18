@@ -1,7 +1,7 @@
 import { useContext } from "react";
 import { useNavigate } from "react-router";
 import { AuthContext } from "../context/AuthContext";
-import { logoutUser } from "../lib/api";
+import { authService } from "../services";
 
 const useAuth = () => {
   const context = useContext(AuthContext);
@@ -9,7 +9,8 @@ const useAuth = () => {
 
   const handleLogout = async () => {
     try {
-      await logoutUser();
+      // await logoutUser();
+      await authService.logout();
       context.updateCurrentUser(null);
       navigate("/login");
     } catch (error) {

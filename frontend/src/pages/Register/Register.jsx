@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router";
 import styles from "./Register.module.css";
 import { Link } from "react-router";
-import { registerUser } from "../../lib/api";
+import { authService } from "../../services";
 
 const Register = () => {
   const navigate = useNavigate();
@@ -30,7 +30,7 @@ const Register = () => {
     e.preventDefault();
 
     try {
-      await registerUser(formData);
+      await authService.register(formData);
       navigate("/login");
     } catch (error) {
       console.error(`Error message: ${error.message}`);

@@ -2,14 +2,14 @@ import mongoose from "mongoose";
 
 const AssignmentsSchema = new mongoose.Schema(
   {
-    classId: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "Classes",
-      required: [true, "Please provide a class id for this assignment"],
-    },
-    assignmentName: {
+    name: {
       type: String,
       required: [true, "Please provide a name for this assignment"],
+    },
+    courseId: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Courses",
+      required: [true, "Please provide a course id for this assignment"],
     },
     dueDate: {
       type: Date,
