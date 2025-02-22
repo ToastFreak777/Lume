@@ -5,17 +5,13 @@ import { NavLink, useSearchParams, useLoaderData } from "react-router";
 
 import { AuthContext } from "../../context/AuthContext";
 import { courseService } from "../../services/courseService";
+import { formatDateToMMDDYYY } from "../../util/helpers";
 
 const Courses = () => {
   const { currentUser } = useContext(AuthContext);
   const [searchParams, setSearchParams] = useSearchParams();
   const courseData = useLoaderData();
   const [courses, setCourses] = useState(courseData);
-
-  const getDate = (dateString) => {
-    const date = new Date(dateString);
-    return date.toLocaleDateString("en-US");
-  };
 
   const deleteCourse = async (courseId) => {
     try {
@@ -47,8 +43,12 @@ const Courses = () => {
         {courses.map((course) => (
           <div className={styles.classes} key={course._id}>
             <p className={styles.className}>{course.name}</p>
-            <p className={styles.startDate}>{getDate(course.startDate)}</p>
-            <p className={styles.endDate}>{getDate(course.endDate)}</p>
+            <p className={styles.startDate}>
+              {formatDateToMMDDYYY(course.startDate)}
+            </p>
+            <p className={styles.endDate}>
+              {formatDateToMMDDYYY(course.endDate)}
+            </p>
             <p className={styles.instructor}>
               {course.instructor.firstName} {course.instructor.lastName}
             </p>
@@ -57,12 +57,20 @@ const Courses = () => {
               {course.enrolledStudents.length}/{course.capacity}
             </p>
             {currentUser?.role === "Admin" && (
-              <button
-                className={styles.deleteButton}
-                onClick={() => deleteCourse(course._id)}
-              >
-                Delete
-              </button>
+              <div className={styles.adminButtons}>
+                <NavLink
+                  to={`/courses/edit/${course._id}`}
+                  className={styles.editButton}
+                >
+                  Edit
+                </NavLink>
+                <button
+                  className={styles.deleteButton}
+                  onClick={() => deleteCourse(course._id)}
+                >
+                  Delete
+                </button>
+              </div>
             )}
           </div>
         ))}

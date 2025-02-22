@@ -6,5 +6,16 @@ import Register from "./Register/Register";
 import Courses from "./Courses/Courses";
 import Messages from "./Messages/Messages";
 import NewCourse from "./Courses/NewCourse";
+import EditCourse from "./Courses/EditCourse";
 
-export { Home, Grades, Notes, Login, Register, Courses, Messages, NewCourse };
+export {
+  Home,
+  Grades,
+  Notes,
+  Login,
+  Register,
+  Courses,
+  Messages,
+  NewCourse,
+  EditCourse,
+};

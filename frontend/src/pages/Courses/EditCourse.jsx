@@ -1,30 +1,34 @@
 import { useNavigate, useLoaderData } from "react-router";
 
 import { courseService } from "../../services/courseService";
-import { calculateAcademicYear } from "../../util/helpers";
+import {
+  calculateAcademicYear,
+  formatDateToYYYYMMDD,
+} from "../../util/helpers";
 import { CourseForm } from "../../components/Forms";
 import { useState } from "react";
 
-const NewCourse = () => {
-  const { instructors, subjects } = useLoaderData();
+const EditCourse = () => {
+  const { instructors, subjects, course } = useLoaderData();
   const navigate = useNavigate();
 
   const [formData, setFormData] = useState({
-    name: "",
-    instructor: "",
-    instructorName: "",
-    subject: "",
-    subjectName: "",
-    subjectAbbreviation: "",
-    level: 0,
-    semester: "Fall",
-    credits: 1,
-    startDate: "",
-    endDate: "",
-    capacity: 0,
-    preRequisites: "",
-    format: "",
-    description: "",
+    id: course._id,
+    name: course.name,
+    instructor: course.instructor,
+    instructorName: `${course.instructor.firstName} ${course.instructor.lastName}`,
+    subject: course.subject._id,
+    subjectName: course.subject.name,
+    subjectAbbreviation: course.subject.abbreviation,
+    level: course.level,
+    semester: course.semester,
+    credits: course.credits,
+    startDate: formatDateToYYYYMMDD(course.startDate),
+    endDate: formatDateToYYYYMMDD(course.endDate),
+    capacity: course.capacity,
+    preRequisites: course.preRequisites.toString(),
+    format: course.format,
+    description: course.description,
   });
 
   const handleSubmit = async (e) => {
@@ -45,7 +49,7 @@ const NewCourse = () => {
 
     try {
       console.log(payload);
-      await courseService.create(payload);
+      await courseService.update(payload);
       navigate("/courses");
     } catch (error) {
       console.error(`Error message: ${error.message}`);
@@ -71,9 +75,9 @@ const NewCourse = () => {
       setFormData={setFormData}
       instructors={instructors}
       subjects={subjects}
-      title={"Create"}
+      title={"Edit"}
     />
   );
 };
 
-export default NewCourse;
+export default EditCourse;

@@ -1,27 +1,46 @@
 .container {
   padding: 1rem;
 
+  a {
+    justify-content: center;
+    align-content: center;
+  }
+
   .addButton,
-  .deleteButton {
+  .adminButtons > * {
     border-radius: 2rem;
     border: none;
 
-    padding: 0.5rem 1rem;
     margin: 0;
-    height: fit-content;
     min-width: 80px;
+    height: 2rem;
 
     color: white;
     cursor: pointer;
 
     text-align: center;
+    text-decoration: none;
+    font-weight: var(--fw-bold);
   }
 
-  .deleteButton {
-    background: hsl(0, 100%, 35%);
+  .adminButtons {
+    display: flex;
+    justify-content: space-between;
 
-    &:hover {
-      background: hsl(0, 100%, 25%);
+    .deleteButton {
+      background: hsl(0, 100%, 35%);
+
+      &:hover {
+        background: hsl(0, 100%, 25%);
+      }
+    }
+
+    .editButton {
+      background: hsl(60, 100%, 35%);
+
+      &:hover {
+        background: hsl(50, 100%, 25%);
+      }
     }
   }
   .addButton {
@@ -50,7 +69,7 @@
   .classListHeader,
   .classes {
     display: grid;
-    grid-template-columns: 2fr repeat(5, 1fr) 0.1fr;
+    grid-template-columns: 2fr repeat(6, 1fr);
 
     border-bottom: 1px solid var(--border-color);
     padding: 0.625rem 2rem;
