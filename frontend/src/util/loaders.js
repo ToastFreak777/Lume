@@ -13,3 +13,15 @@ export const newCourseLoader = async () => {
     subjects,
   };
 };
+
+export const editCourseLoader = async ({ params }) => {
+  const course = await courseService.getCourse(params.id);
+  const instructors = await userService.getInstructors();
+  const subjects = await courseService.getSubjects();
+
+  return {
+    course,
+    instructors,
+    subjects,
+  };
+};

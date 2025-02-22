@@ -9,7 +9,10 @@ export const getCourses = async (req, res) => {
 };
 
 export const getCourse = async (req, res) => {
-  const course = await Courses.findById(req.params.id);
+  const course = await Courses.findById(req.params.id).populate([
+    "instructor",
+    "subject",
+  ]);
 
   res.status(StatusCodes.OK).json(course);
 };
