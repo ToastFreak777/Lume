@@ -3,7 +3,7 @@ import Courses from "../models/courses.model.js";
 import { createCustomError } from "../errors/custom-error.js";
 
 export const getCourses = async (req, res) => {
-  const courses = await Courses.find().lean();
+  const courses = await Courses.find().populate("instructor");
 
   res.status(StatusCodes.OK).json(courses);
 };
@@ -17,9 +17,10 @@ export const getCourse = async (req, res) => {
 export const addCourse = async (req, res, next) => {
   const {
     name,
-    instructorId,
+    instructor,
     subject,
     level,
+    format,
     semester,
     startDate,
     endDate,
@@ -30,9 +31,10 @@ export const addCourse = async (req, res, next) => {
 
   if (
     !name ||
-    !instructorId ||
+    !instructor ||
     !subject ||
     !level ||
+    !format ||
     !semester ||
     !startDate ||
     !endDate ||

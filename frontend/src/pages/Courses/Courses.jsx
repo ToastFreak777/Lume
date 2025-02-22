@@ -1,53 +1,35 @@
 import styles from "./Courses.module.css";
 
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { NavLink, useSearchParams, useLoaderData } from "react-router";
 
 import { AuthContext } from "../../context/AuthContext";
-
-const COURSE_LIST = [
-  { id: "CS226", label: "CS226" },
-  { id: "CS237", label: "CS237" },
-  { id: "CS9800", label: "CS9800" },
-  { id: "CS10687", label: "CS10687" },
-];
-
-import { courses } from "../../util/courses.json";
+import { courseService } from "../../services/courseService";
 
 const Courses = () => {
   const { currentUser } = useContext(AuthContext);
   const [searchParams, setSearchParams] = useSearchParams();
-  const data = useLoaderData();
-  console.log(data);
+  const courseData = useLoaderData();
+  const [courses, setCourses] = useState(courseData);
 
-  const getCourseName = (course) => {
-    const currentCourse = searchParams.get("course");
-    return `${styles.course} ${currentCourse === course ? styles.active : ""}`;
+  const getDate = (dateString) => {
+    const date = new Date(dateString);
+    return date.toLocaleDateString("en-US");
+  };
+
+  const deleteCourse = async (courseId) => {
+    try {
+      await courseService.delete(courseId);
+      setCourses(courses.filter(({ _id }) => _id !== courseId));
+    } catch (error) {
+      console.error(`Error message: ${error.message}`);
+      console.error(error.data);
+      console.info(error);
+    }
   };
 
   return (
     <div className={styles.container}>
-      <div className={styles.wrapper}>
-        <div className={styles.courses}>
-          {COURSE_LIST.map(({ id, label }) => (
-            <NavLink
-              key={id}
-              to={`/courses?course=${id}`}
-              className={getCourseName(id)}
-            >
-              {label}
-            </NavLink>
-          ))}
-        </div>
-        {currentUser?.role === "Admin" && (
-          <div className={styles.buttons}>
-            <NavLink to="/courses/new" className={styles.crudButton}>
-              Add
-            </NavLink>
-          </div>
-        )}
-      </div>
-
       <div className={styles.classList}>
         <div className={styles.classListHeader}>
           <p>Class Name</p>
@@ -56,17 +38,32 @@ const Courses = () => {
           <p>Instructor</p>
           <p>Type</p>
           <p>Capacity</p>
+          {currentUser?.role === "Admin" && (
+            <NavLink to="/courses/new" className={styles.addButton}>
+              Add
+            </NavLink>
+          )}
         </div>
-        {courses.map((c, i) => (
-          <div className={styles.classes} key={i}>
-            <p className={styles.className}>{c.name}</p>
-            <p className={styles.startDate}>{c.startDate}</p>
-            <p className={styles.endDate}>{c.endDate}</p>
-            <p className={styles.instructor}>{c.instructor.name}</p>
-            <p className={styles.type}>{c.type}</p>
-            <p className={styles.capacity}>
-              {c.capacity.enrolled}/{c.capacity.total}
+        {courses.map((course) => (
+          <div className={styles.classes} key={course._id}>
+            <p className={styles.className}>{course.name}</p>
+            <p className={styles.startDate}>{getDate(course.startDate)}</p>
+            <p className={styles.endDate}>{getDate(course.endDate)}</p>
+            <p className={styles.instructor}>
+              {course.instructor.firstName} {course.instructor.lastName}
             </p>
+            <p className={styles.type}>{course.format}</p>
+            <p className={styles.capacity}>
+              {course.enrolledStudents.length}/{course.capacity}
+            </p>
+            {currentUser?.role === "Admin" && (
+              <button
+                className={styles.deleteButton}
+                onClick={() => deleteCourse(course._id)}
+              >
+                Delete
+              </button>
+            )}
           </div>
         ))}
       </div>

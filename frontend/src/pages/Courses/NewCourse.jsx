@@ -58,20 +58,23 @@ const NewCourse = () => {
 
     const academicYear = calculateAcademicYear(startDate, endDate, semester);
 
+    const subjectData = JSON.parse(formData.get("subject"));
+
     const courseData = {
       name: formData.get("name"),
-      subject: formData.get("subject"),
+      subject: subjectData._id,
       semester: semester,
-      classCode: `${formData.get("subject")}-${formData.get("level")}`,
+      classCode: `${subjectData.abbreviation}-${formData.get("level")}`,
       credits: formData.get("credits"),
       capacity: formData.get("capacity"),
       description: formData.get("description"),
+      format: formData.get("format"),
       preRequisites:
         formData
           .get("preRequisites")
           ?.split(",")
           .map((item) => item.trim()) || [],
-      instructorId: formData.get("instructorId"),
+      instructor: formData.get("instructorId"),
       level: formData.get("level"),
       startDate: startDate,
       endDate: endDate,
@@ -79,6 +82,7 @@ const NewCourse = () => {
     };
 
     try {
+      // console.log(courseData);
       await courseService.create(courseData);
       navigate("/courses");
     } catch (error) {
@@ -161,7 +165,8 @@ const NewCourse = () => {
                       key={subject._id}
                       className={styles.dropdownItem}
                       onClick={() => {
-                        document.getElementById("subject").value = subject._id;
+                        document.getElementById("subject").value =
+                          JSON.stringify(subject);
                         setSubjectSearch(subject.name);
                         setShowSubjectDropdown(false);
                       }}
@@ -215,6 +220,20 @@ const NewCourse = () => {
               name="preRequisites"
               placeholder="CS101, CS102 (comma separated)"
             />
+          </div>
+
+          <div className={`${styles.formGroup} ${styles.format}`}>
+            <input
+              type="radio"
+              id="in-person"
+              name="format"
+              value="In-Person"
+            />
+            <label htmlFor="format">In-Person</label>
+            <input type="radio" id="online" name="format" value="Online" />
+            <label htmlFor="format">Online</label>
+            <input type="radio" id="hybrid" name="format" value="Hybrid" />
+            <label htmlFor="format">Hybrid</label>
           </div>
 
           <div className={`${styles.formGroup} ${styles.description}`}>

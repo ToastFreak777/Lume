@@ -2,7 +2,6 @@ import { courseService, userService } from "../services";
 
 export const courseLoader = async () => {
   const response = await courseService.getCourses();
-  console.log(response);
   return response;
 };
 

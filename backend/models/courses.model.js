@@ -7,7 +7,7 @@ const CoursesSchema = new mongoose.Schema(
       trim: true,
       required: [true, "Please provide a name for this class"],
     },
-    instructorId: {
+    instructor: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "Users",
       required: [true, "Please provide a instructor id for this class"],
@@ -34,6 +34,14 @@ const CoursesSchema = new mongoose.Schema(
         ref: "Users",
       },
     ],
+    format: {
+      type: String,
+      enum: ["In-Person", "Online", "Hybrid"],
+      required: [
+        true,
+        "Please specify the format for this course (In-Person, Online, or Hybrid).",
+      ],
+    },
     preRequisites: {
       type: [String],
       default: [],

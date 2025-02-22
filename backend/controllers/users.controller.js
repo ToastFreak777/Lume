@@ -2,7 +2,9 @@ import Users from "../models/users.model.js";
 import { StatusCodes } from "http-status-codes";
 
 export const getUsers = async (req, res) => {
-  const users = await Users.find();
+  const { role } = req.query;
+
+  const users = await Users.find({ role: role });
 
   res.status(StatusCodes.OK).json(users);
 };

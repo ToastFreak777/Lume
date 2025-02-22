@@ -1,43 +1,34 @@
 .container {
   padding: 1rem;
 
-  .wrapper {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    .courses {
-      display: flex;
-      gap: 1rem;
-      align-items: center;
+  .addButton,
+  .deleteButton {
+    border-radius: 2rem;
+    border: none;
 
-      .course {
-        padding: 0.5rem 2rem;
-        border-radius: 2rem;
-        border: 1px solid var(--border-color);
-        color: var(--color-gray);
-      }
+    padding: 0.5rem 1rem;
+    margin: 0;
+    height: fit-content;
+    min-width: 80px;
 
-      .active {
-        border-color: black;
-        color: black;
-        font-weight: var(--fw-x-bold);
-      }
+    color: white;
+    cursor: pointer;
+
+    text-align: center;
+  }
+
+  .deleteButton {
+    background: hsl(0, 100%, 35%);
+
+    &:hover {
+      background: hsl(0, 100%, 25%);
     }
+  }
+  .addButton {
+    background: hsl(120, 100%, 35%);
 
-    .crudButton {
-      border-radius: 2rem;
-      border: none;
-
-      padding: 0.5rem 1rem;
-      height: fit-content;
-
+    &:hover {
       background: hsl(120, 100%, 25%);
-      color: white;
-      cursor: pointer;
-
-      &:hover {
-        background: hsl(120, 100%, 35%);
-      }
     }
   }
 }
@@ -49,13 +40,17 @@
   border-radius: 0.6rem;
 
   .classListHeader {
-    background-color: hsl(0, 0%, 98%);
+    background-color: hsl(0, 0%, 95%);
+
+    p {
+      margin: 0;
+    }
   }
 
   .classListHeader,
   .classes {
     display: grid;
-    grid-template-columns: 2fr repeat(5, 1fr);
+    grid-template-columns: 2fr repeat(5, 1fr) 0.1fr;
 
     border-bottom: 1px solid var(--border-color);
     padding: 0.625rem 2rem;
@@ -68,10 +63,6 @@
   }
 
   .classes {
-    p {
-      margin: 0;
-    }
-
     .className {
       font-weight: var(--fw-bold);
     }

@@ -149,8 +149,15 @@
   font-weight: 600;
 }
 
-.description {
+.description,
+.format {
   grid-column: span 2;
+}
+
+.format {
+  display: flex;
+  flex-direction: row;
+  gap: 2rem;
 }
 
 .dropdownContainer {

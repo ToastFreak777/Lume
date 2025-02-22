@@ -15,4 +15,6 @@ export const courseService = {
 
   getCourses: () => fetchWithAuth("/courses"),
   getSubjects: () => fetchWithAuth("/subjects"),
+  delete: (courseId) =>
+    fetchWithAuth(`/courses/${courseId}`, { method: "DELETE" }),
 };
