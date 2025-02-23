@@ -24,6 +24,26 @@ const Courses = () => {
     }
   };
 
+  const enrollStudent = async (courseId) => {
+    try {
+      await courseService.enroll(courseId, currentUser._id);
+    } catch (error) {
+      console.error(`Error message: ${error.message}`);
+      console.error(error.data);
+      console.info(error);
+    }
+  };
+
+  const dropCourse = async (courseId) => {
+    try {
+      await courseService.drop(courseId, currentUser._id);
+    } catch (error) {
+      console.error(`Error message: ${error.message}`);
+      console.error(error.data);
+      console.info(error);
+    }
+  };
+
   return (
     <div className={styles.container}>
       <div className={styles.classList}>
@@ -72,6 +92,26 @@ const Courses = () => {
                 </button>
               </div>
             )}
+            {currentUser?.role === "Student" &&
+              (!course.enrolledStudents.includes(currentUser._id) ? (
+                <div className={styles.adminButtons}>
+                  <button
+                    className={styles.editButton}
+                    onClick={() => enrollStudent(course._id)}
+                  >
+                    Enroll
+                  </button>
+                </div>
+              ) : (
+                <div className={styles.adminButtons}>
+                  <button
+                    className={styles.deleteButton}
+                    onClick={() => dropCourse(course._id)}
+                  >
+                    Drop
+                  </button>
+                </div>
+              ))}
           </div>
         ))}
       </div>

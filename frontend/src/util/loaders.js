@@ -25,3 +25,8 @@ export const editCourseLoader = async ({ params }) => {
     subjects,
   };
 };
+
+export const messageLoader = async () => {
+  const users = await userService.getAll();
+  return users;
+};

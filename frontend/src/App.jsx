@@ -14,6 +14,7 @@ import {
   courseLoader,
   newCourseLoader,
   editCourseLoader,
+  messageLoader,
 } from "./util/loaders";
 import EditCourse from "./pages/Courses/EditCourse";
 
@@ -52,6 +53,7 @@ const routes = [
       {
         path: "messages",
         element: <Messages />,
+        loader: messageLoader,
       },
       {
         path: "notes",

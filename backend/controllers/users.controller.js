@@ -4,7 +4,9 @@ import { StatusCodes } from "http-status-codes";
 export const getUsers = async (req, res) => {
   const { role } = req.query;
 
-  const users = await Users.find({ role: role });
+  const users = await Users.find(
+    role ? { role: role } : { role: { $ne: "Admin" } }
+  );
 
   res.status(StatusCodes.OK).json(users);
 };

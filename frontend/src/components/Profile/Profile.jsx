@@ -8,13 +8,20 @@ const profile = {
   email: "john.doe@gmail.com",
 };
 
-const Profile = ({ className }) => {
+const Profile = ({ user, className, id }) => {
   return (
     <div className={`${styles.container} ${className || ""}`}>
       <div className={styles.userInfo}>
-        <img src={profile.avatar} alt={profile.name} />
-        <p className={styles.name}>{profile.name}</p>
-        <p className={styles.email}>{profile.email}</p>
+        <img
+          src={`https://randomuser.me/api/portraits/${
+            user.gender === "female" ? "women" : "men"
+          }/${id}.jpg`}
+          alt={profile.name}
+        />
+        <p className={styles.name}>
+          {user.firstName} {user.lastName}
+        </p>
+        <p className={styles.email}>{user.email}</p>
       </div>
 
       <div className={styles.actions}>

@@ -1,5 +1,6 @@
 import { StatusCodes } from "http-status-codes";
 import Courses from "../models/courses.model.js";
+import User from "../models/users.model.js";
 import { createCustomError } from "../errors/custom-error.js";
 
 export const getCourses = async (req, res) => {
@@ -73,4 +74,54 @@ export const deleteCourse = async (req, res) => {
   res
     .status(StatusCodes.OK)
     .json({ msg: `${course.className} deleted successfully` });
+};
+
+export const enrollStudent = async (req, res, next) => {
+  // const { token } = req.cookie;
+  const { id: courseId } = req.params;
+  const { studentId } = req.body;
+
+  const student = await User.findById(studentId);
+
+  if (!student)
+    return next(createCustomError("Student not found", StatusCodes.NOT_FOUND));
+
+  // if (student._id !== token)
+  //   return res
+  //     .status(StatusCodes.UNAUTHORIZED)
+  //     .json({ msg: "You are not authorized to enroll this student" });
+
+  const course = await Courses.findByIdAndUpdate(courseId, {
+    $addToSet: { enrolledStudents: studentId },
+  });
+
+  if (!course)
+    return next(createCustomError("Course not found", StatusCodes.NOT_FOUND));
+
+  res.status(StatusCodes.OK).json({ msg: "Student enrolled successfully" });
+};
+
+export const dropCourse = async (req, res, next) => {
+  // const { token } = req.cookie;
+  const { id: courseId } = req.params;
+  const { studentId } = req.body;
+
+  const student = await User.findById(studentId);
+
+  if (!student)
+    return next(createCustomError("Student not found", StatusCodes.NOT_FOUND));
+
+  // if (student._id !== token)
+  //   return res
+  //     .status(StatusCodes.UNAUTHORIZED)
+  //     .json({ msg: "You are not authorized to enroll this student" });
+
+  const course = await Courses.findByIdAndUpdate(courseId, {
+    $pull: { enrolledStudents: studentId },
+  });
+
+  if (!course)
+    return next(createCustomError("Course not found", StatusCodes.NOT_FOUND));
+
+  res.status(StatusCodes.OK).json({ msg: "Course dropped..." });
 };
