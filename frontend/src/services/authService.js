@@ -18,5 +18,5 @@ export const authService = {
       method: "POST",
     }),
 
-  verify: () => fetchWithAuth("/auth/verify"),
+  getCredentials: () => fetchWithAuth("/auth/credentials"),
 };

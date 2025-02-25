@@ -9,15 +9,9 @@ const authMiddleware = async (req, res, next) => {
     return next(createCustomError("Invalid token", StatusCodes.UNAUTHORIZED));
   }
 
-  try {
-    const payload = jwt.verify(token, process.env.JWT_SECRET);
-    req.user = { userId: payload.userId, name: payload.name };
-    next();
-  } catch (error) {
-    return next(
-      createCustomError("Authentication failed", StatusCodes.UNAUTHORIZED)
-    );
-  }
+  const payload = jwt.verify(token, process.env.JWT_SECRET);
+  req.user = { id: payload.userId, isAdmin: payload.isAdmin };
+  next();
 };
 
 export default authMiddleware;

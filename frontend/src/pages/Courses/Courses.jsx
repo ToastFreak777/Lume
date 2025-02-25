@@ -26,6 +26,8 @@ const Courses = () => {
 
   const enrollStudent = async (courseId) => {
     try {
+      // Don't need to pass in userId its stored in cookie and sent with request
+      // this is just for if there was an admin dashboard
       await courseService.enroll(courseId, currentUser._id);
     } catch (error) {
       console.error(`Error message: ${error.message}`);
