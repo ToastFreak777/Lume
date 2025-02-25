@@ -19,8 +19,8 @@ const router = Router();
 router.get("/", authMiddleware, getCourses);
 router.get("/:id", authMiddleware, getCourse);
 router.post("/", authMiddleware, isAdminAuth, addCourse);
-router.post("/:id/enroll", authMiddleware, authorizeUser, enrollStudent);
-router.put("/:id/enroll", authMiddleware, authorizeUser, dropCourse);
+router.post("/:id/enroll", authMiddleware, enrollStudent);
+router.put("/:id/enroll", authMiddleware, dropCourse);
 router.put("/:id", authMiddleware, isAdminAuth, updateCourse);
 router.delete("/:id", authMiddleware, isAdminAuth, deleteCourse);
 

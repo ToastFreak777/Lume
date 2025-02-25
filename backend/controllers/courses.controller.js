@@ -77,19 +77,14 @@ export const deleteCourse = async (req, res) => {
 };
 
 export const enrollStudent = async (req, res, next) => {
-  // const { token } = req.cookie;
   const { id: courseId } = req.params;
-  const { studentId } = req.body;
+  // const { studentId } = req.body;
+  const studentId = req.user.id;
 
   const student = await User.findById(studentId);
 
   if (!student)
     return next(createCustomError("Student not found", StatusCodes.NOT_FOUND));
-
-  // if (student._id !== token)
-  //   return res
-  //     .status(StatusCodes.UNAUTHORIZED)
-  //     .json({ msg: "You are not authorized to enroll this student" });
 
   const course = await Courses.findByIdAndUpdate(courseId, {
     $addToSet: { enrolledStudents: studentId },
@@ -102,19 +97,14 @@ export const enrollStudent = async (req, res, next) => {
 };
 
 export const dropCourse = async (req, res, next) => {
-  // const { token } = req.cookie;
   const { id: courseId } = req.params;
-  const { studentId } = req.body;
+  // const { studentId } = req.body;
+  const studentId = req.user.id;
 
   const student = await User.findById(studentId);
 
   if (!student)
     return next(createCustomError("Student not found", StatusCodes.NOT_FOUND));
-
-  // if (student._id !== token)
-  //   return res
-  //     .status(StatusCodes.UNAUTHORIZED)
-  //     .json({ msg: "You are not authorized to enroll this student" });
 
   const course = await Courses.findByIdAndUpdate(courseId, {
     $pull: { enrolledStudents: studentId },
