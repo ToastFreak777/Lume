@@ -29,7 +29,7 @@ const Login = () => {
     try {
       await authService.login(formData);
 
-      const userData = await authService.verify();
+      const userData = await authService.getCredentials();
 
       updateCurrentUser(userData);
 

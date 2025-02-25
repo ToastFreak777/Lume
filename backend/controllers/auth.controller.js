@@ -3,78 +3,40 @@ import User from "../models/users.model.js";
 import { createCustomError } from "../errors/custom-error.js";
 import ms from "ms";
 
+import { validateFields } from "../utils/helpers.js";
+
 export const register = async (req, res, next) => {
-  const { role, firstName, lastName, email, password, phone, dob, gender } =
-    req.body;
+  const { email } = req.body;
 
-  // Validate required fields with specific messages
-  if (!role) {
-    return next(createCustomError("Role is required", StatusCodes.BAD_REQUEST));
-  }
-  if (!firstName) {
+  const requiredFields = {
+    role: "Role",
+    firstName: "First name",
+    lastName: "Last name",
+    email: "Email",
+    password: "Password",
+    dob: "Date of Birth",
+  };
+
+  if (
+    !validateFields(
+      requiredFields,
+      req.body,
+      next,
+      createCustomError,
+      StatusCodes.BAD_REQUEST
+    )
+  )
+    return;
+
+  const existingUser = await User.findOne({ email });
+  if (existingUser) {
     return next(
-      createCustomError("First name is required", StatusCodes.BAD_REQUEST)
-    );
-  }
-  if (!lastName) {
-    return next(
-      createCustomError("Last name is required", StatusCodes.BAD_REQUEST)
-    );
-  }
-  if (!email) {
-    return next(
-      createCustomError("Email is required", StatusCodes.BAD_REQUEST)
-    );
-  }
-  if (!password) {
-    return next(
-      createCustomError("Password is required", StatusCodes.BAD_REQUEST)
-    );
-  }
-  if (!dob) {
-    return next(
-      createCustomError("Date of Birth is required", StatusCodes.BAD_REQUEST)
-    );
-  }
-  if (!gender) {
-    return next(
-      createCustomError("Gender is required", StatusCodes.BAD_REQUEST)
-    );
-  }
-  if (!phone) {
-    return next(
-      createCustomError("Phone number is required", StatusCodes.BAD_REQUEST)
+      createCustomError("Email already registered", StatusCodes.CONFLICT)
     );
   }
 
-  try {
-    // Check if email already exists
-    const existingUser = await User.findOne({ email });
-    if (existingUser) {
-      return next(
-        createCustomError("Email already registered", StatusCodes.CONFLICT)
-      );
-    }
-
-    await User.create(req.body);
-
-    res.status(StatusCodes.CREATED).json({ msg: "Registration successful" });
-  } catch (error) {
-    // Handle mongoose validation errors
-    if (error.name === "ValidationError") {
-      const messages = Object.values(error.errors).map((err) => err.message);
-      return next(
-        createCustomError(messages.join(". "), StatusCodes.BAD_REQUEST)
-      );
-    }
-    // Handle other errors
-    return next(
-      createCustomError(
-        "Registration failed",
-        StatusCodes.INTERNAL_SERVER_ERROR
-      )
-    );
-  }
+  await User.create(req.body);
+  res.status(StatusCodes.CREATED).json({ msg: "Registration successful" });
 };
 export const login = async (req, res, next) => {
   const { email, password } = req.body;
@@ -88,7 +50,7 @@ export const login = async (req, res, next) => {
     );
   }
 
-  const user = await User.findOne({ email });
+  const user = await User.findOne({ email }).select("+password");
 
   if (!user) {
     return next(
@@ -116,14 +78,8 @@ export const login = async (req, res, next) => {
     .json({ msg: "Login successful" });
 };
 
-export const verify = async (req, res, next) => {
-  if (!req.user) {
-    return next(
-      createCustomError("User not authenticated", StatusCodes.UNAUTHORIZED)
-    );
-  }
-
-  const user = await User.findById(req.user.userId).select("-password");
+export const getCredentials = async (req, res, next) => {
+  const user = await User.findById(req.user.id);
 
   if (!user) {
     return next(createCustomError("User not found", StatusCodes.NOT_FOUND));

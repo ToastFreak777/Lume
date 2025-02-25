@@ -8,12 +8,15 @@ import {
   deleteSubject,
 } from "../controllers/subjects.controller.js";
 
+import isAdminAuth from "../middleware/isAdminAuth.js";
+import authMiddleware from "../middleware/authentication.js";
+
 const router = Router();
 
-router.get("/", getSubjects);
-router.get("/:id", getSubject);
-router.post("/", addSubject);
-router.put("/:id", updateSubject);
-router.delete("/:id", deleteSubject);
+router.get("/", authMiddleware, getSubjects);
+router.get("/:id", authMiddleware, getSubject);
+router.post("/", authMiddleware, isAdminAuth, addSubject);
+router.put("/:id", authMiddleware, isAdminAuth, updateSubject);
+router.delete("/:id", authMiddleware, isAdminAuth, deleteSubject);
 
 export default router;

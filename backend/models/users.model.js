@@ -29,23 +29,23 @@ const UsersSchema = new mongoose.Schema(
       match: [/^\S+@\S+\.\S+$/, "Please provide a valid email address"],
     },
     dob: {
-      type: Date,
+      type: String,
       required: [true, "Please provide a date of birth for this user"],
     },
     gender: {
       type: String,
-      required: [true, "Please provide a gender for this user"],
-      enum: ["male", "female", "other"],
+      enum: ["male", "female", "other", "unknown"],
+      default: "unknown",
     },
     phone: {
       type: String,
-      required: [true, "Please provide a phone number for this user"],
       match: [/^\d{10}$/, "Please provide a valid phone number"],
     },
     password: {
       type: String,
       required: [true, "Please provide a password for this user"],
       minlength: [6, "Password must be at least 6 characters"],
+      select: false,
     },
     isActive: {
       type: Boolean,
@@ -65,16 +65,6 @@ const UsersSchema = new mongoose.Schema(
       type: String,
       default: null,
       trim: true,
-    },
-    enrollmentYear: {
-      type: Number,
-      min: 2000,
-      max: 2100,
-    },
-    graduationYear: {
-      type: Number,
-      min: 2000,
-      max: 2100,
     },
   },
   { timestamps: true }
