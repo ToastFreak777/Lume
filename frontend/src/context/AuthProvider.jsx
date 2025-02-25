@@ -9,7 +9,7 @@ export const AuthProvider = ({ children }) => {
   useEffect(() => {
     const checkAuth = async () => {
       try {
-        const userData = await authService.verify();
+        const userData = await authService.getCredentials();
         updateCurrentUser(userData);
       } catch (error) {
         setCurrentUser(null);

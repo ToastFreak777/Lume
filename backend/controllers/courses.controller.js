@@ -1,7 +1,8 @@
 import { StatusCodes } from "http-status-codes";
 import Courses from "../models/courses.model.js";
-import User from "../models/users.model.js";
+import Users from "../models/users.model.js";
 import { createCustomError } from "../errors/custom-error.js";
+import { validateFields } from "../utils/helpers.js";
 
 export const getCourses = async (req, res) => {
   const courses = await Courses.find().populate("instructor");
@@ -19,43 +20,44 @@ export const getCourse = async (req, res) => {
 };
 
 export const addCourse = async (req, res, next) => {
-  const {
-    name,
-    instructor,
-    subject,
-    level,
-    format,
-    semester,
-    startDate,
-    endDate,
-    classCode,
-    credits,
-    capacity,
-  } = req.body;
+  const { instructor } = req.body;
+
+  const requiredFields = {
+    name: "Course Name",
+    instructor: "Instructor",
+    subject: "Subject",
+    level: "Course level",
+    format: "Course format",
+    semester: "Semester",
+    startDate: "Start Date",
+    endDate: "End Date",
+    classCode: "Course Code",
+    credits: "Course Credits",
+    capacity: "Course Capacity",
+  };
 
   if (
-    !name ||
-    !instructor ||
-    !subject ||
-    !level ||
-    !format ||
-    !semester ||
-    !startDate ||
-    !endDate ||
-    !classCode ||
-    !credits ||
-    !capacity
-  ) {
+    !validateFields(
+      requiredFields,
+      req.body,
+      next,
+      createCustomError,
+      StatusCodes.BAD_REQUEST
+    )
+  )
+    return;
+
+  const user = await Users.findById(instructor).lean();
+
+  if (!user)
     return next(
       createCustomError(
-        "Please provide all required fields",
+        `No instructor of id ${instructor}`,
         StatusCodes.BAD_REQUEST
       )
     );
-  }
 
   const course = await Courses.create(req.body);
-
   res.status(StatusCodes.CREATED).json({ msg: `${course.name} created` });
 };
 
@@ -81,7 +83,7 @@ export const enrollStudent = async (req, res, next) => {
   // const { studentId } = req.body;
   const studentId = req.user.id;
 
-  const student = await User.findById(studentId);
+  const student = await Users.findById(studentId);
 
   if (!student)
     return next(createCustomError("Student not found", StatusCodes.NOT_FOUND));
@@ -101,7 +103,7 @@ export const dropCourse = async (req, res, next) => {
   // const { studentId } = req.body;
   const studentId = req.user.id;
 
-  const student = await User.findById(studentId);
+  const student = await Users.findById(studentId);
 
   if (!student)
     return next(createCustomError("Student not found", StatusCodes.NOT_FOUND));
@@ -114,4 +116,11 @@ export const dropCourse = async (req, res, next) => {
     return next(createCustomError("Course not found", StatusCodes.NOT_FOUND));
 
   res.status(StatusCodes.OK).json({ msg: "Course dropped..." });
+};
+
+export const getUserCourses = async (req, res, next) => {
+  const query = { enrolledStudents: { $in: req.user.id } };
+  const userCourses = await Courses.find(query);
+
+  res.status(StatusCodes.OK).json({ courses: userCourses });
 };

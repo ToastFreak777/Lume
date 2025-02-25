@@ -30,3 +30,8 @@ export const messageLoader = async () => {
   const users = await userService.getAll();
   return users;
 };
+
+export const homeLoader = async () => {
+  const userCourses = await courseService.getAllCoursesOfUser();
+  return userCourses;
+};

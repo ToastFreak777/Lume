@@ -28,4 +28,5 @@ export const courseService = {
       method: "PUT",
       body: JSON.stringify({ studentId }),
     }),
+  getAllCoursesOfUser: () => fetchWithAuth("/courses/user"),
 };

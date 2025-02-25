@@ -8,6 +8,7 @@ import {
   deleteCourse,
   enrollStudent,
   dropCourse,
+  getUserCourses,
 } from "../controllers/courses.controller.js";
 
 import authMiddleware from "../middleware/authentication.js";
@@ -17,6 +18,7 @@ import authorizeUser from "../middleware/authorize.js";
 const router = Router();
 
 router.get("/", authMiddleware, getCourses);
+router.get("/user", authMiddleware, getUserCourses);
 router.get("/:id", authMiddleware, getCourse);
 router.post("/", authMiddleware, isAdminAuth, addCourse);
 router.post("/:id/enroll", authMiddleware, enrollStudent);
