@@ -44,7 +44,7 @@ const Courses = () => {
         })
       );
 
-      socket.emit("enrolled");
+      socket.emit("enrolled", { courseId });
     } catch (error) {
       console.error(`Error message: ${error.message}`);
       console.error(error.data);
@@ -71,7 +71,7 @@ const Courses = () => {
         })
       );
 
-      socket.emit("dropped");
+      socket.emit("dropped", { courseId });
     } catch (error) {
       console.error(`Error message: ${error.message}`);
       console.error(error.data);
@@ -80,8 +80,14 @@ const Courses = () => {
   };
 
   useEffect(() => {
-    socket.on("refresh", () => {
-      console.log("refreshing courses");
+    socket.on("refresh", async ({ courseId }) => {
+      console.log("refreshing courses", courseId);
+      const course = await courseService.getCourse(courseId);
+      setCourses(
+        courses.map((old_course) =>
+          old_course._id === course._id ? course : old_course
+        )
+      );
     });
 
     return () => {

@@ -17,11 +17,13 @@ export const setUpSocket = () => {
     log("client connected");
     // console.log(socket.handshake.headers);
 
-    socket.on("enrolled", () => {
-      socket.emit("refresh");
+    socket.on("enrolled", ({ courseId }) => {
+      io.emit("refresh", { courseId });
+      log(courseId);
     });
-    socket.on("dropped", () => {
-      socket.emit("refresh");
+    socket.on("dropped", ({ courseId }) => {
+      io.emit("refresh", { courseId });
+      log(courseId);
     });
   });
 
