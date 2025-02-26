@@ -3,7 +3,7 @@ import styles from "./Courses.module.css";
 import { useContext, useState } from "react";
 import { NavLink, useSearchParams, useLoaderData } from "react-router";
 
-import { AuthContext } from "../../context/AuthContext";
+import { AuthContext } from "../../context/store";
 import { courseService } from "../../services/courseService";
 import { formatDateToMMDDYYY } from "../../util/helpers";
 
