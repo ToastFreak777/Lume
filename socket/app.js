@@ -14,9 +14,9 @@ let connections = {
 io.on("connection", (socket) => {
   const { origin } = socket.handshake.headers;
 
-  if (origin.includes("5173")) {
+  if (origin.includes(process.env.CLIENT_URL)) {
     connections.client = "connected";
-  } else if (origin.includes("8080")) {
+  } else if (origin.includes(process.env.SERVER_URL)) {
     connections.server = "connected";
   }
   console.log(connections);
@@ -26,12 +26,12 @@ io.on("connection", (socket) => {
 io.on("disconnect", () => {
   const { origin } = socket.handshake.headers;
 
-  if (origin.includes("5173")) {
+  if (origin.includes(process.env.CLIENT_URL)) {
     connections.client = "disconnected";
-  } else if (origin.includes("8080")) {
+  } else if (origin.includes(process.env.SERVER_URL)) {
     connections.server = "disconnected";
   }
   console.log(connections);
 });
 
-io.listen("4000");
+io.listen(process.env.PORT);
