@@ -1,6 +1,6 @@
 import { useLoaderData } from "react-router";
 
-import { Dashboard, Calendar, Sidebar } from "../../components";
+import { Dashboard, Calendar } from "../../components";
 
 import styles from "./Home.module.css";
 
@@ -13,7 +13,6 @@ const Home = () => {
         <Dashboard userCourses={userCourses} />
         <Calendar />
       </div>
-      {/* <Sidebar /> */}
     </div>
   );
 };

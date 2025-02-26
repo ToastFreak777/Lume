@@ -3,7 +3,6 @@ import {
   MdOutlineEmail,
   MdOutlineSearch,
 } from "react-icons/md";
-import { FiMessageSquare } from "react-icons/fi";
 
 import styles from "./Searchbar.module.css";
 
@@ -18,11 +17,6 @@ const Searchbar = () => {
         {pathname === "/" ? "Overview" : pathname.split("/")[1]}
       </h1>
       <div className={`${styles["searchbar-container"]}`}>
-        {/* <div className={styles.searchbar}>
-          <MdOutlineSearch />
-          <input className={styles.search} type="text" placeholder="Search" />
-        </div> */}
-
         {(pathname === "/courses" || pathname === "/grades") && (
           <div className={styles.searchbar}>
             <MdOutlineSearch />
@@ -32,7 +26,6 @@ const Searchbar = () => {
         <div className={styles.notifications}>
           <MdNotificationsNone />
           <MdOutlineEmail />
-          <FiMessageSquare />
         </div>
       </div>
     </div>
