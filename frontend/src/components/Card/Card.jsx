@@ -7,12 +7,14 @@ const Card = ({ card, className }) => {
   card.startDate = formatDateToMMDDYYY(card.startDate);
   card.endDate = formatDateToMMDDYYY(card.endDate);
 
+  const imgSize = 100;
+
   return (
     <div className={`${styles.card} ${className}`}>
       <div className={styles.cardImage}>
         <img
           className={styles.image}
-          src="https://picsum.photos/id/238/300/200"
+          src={`https://picsum.photos/seed/${card._id}/${imgSize}/${imgSize}`}
           // src="https://www.svgrepo.com/show/508699/landscape-placeholder.svg"
           alt="class_picture"
         />
