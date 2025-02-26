@@ -90,12 +90,12 @@ export const enrollStudent = async (req, res, next) => {
 
   const course = await Courses.findByIdAndUpdate(courseId, {
     $addToSet: { enrolledStudents: studentId },
-  });
+  }).lean();
 
   if (!course)
     return next(createCustomError("Course not found", StatusCodes.NOT_FOUND));
 
-  res.status(StatusCodes.OK).json({ msg: "Student enrolled successfully" });
+  res.status(StatusCodes.OK).json({ capacity: course.capacity });
 };
 
 export const dropCourse = async (req, res, next) => {
@@ -103,14 +103,14 @@ export const dropCourse = async (req, res, next) => {
   // const { studentId } = req.body;
   const studentId = req.user.id;
 
-  const student = await Users.findById(studentId);
+  const student = await Users.findById(studentId).lean();
 
   if (!student)
     return next(createCustomError("Student not found", StatusCodes.NOT_FOUND));
 
   const course = await Courses.findByIdAndUpdate(courseId, {
     $pull: { enrolledStudents: studentId },
-  });
+  }).lean();
 
   if (!course)
     return next(createCustomError("Course not found", StatusCodes.NOT_FOUND));

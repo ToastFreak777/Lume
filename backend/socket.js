@@ -16,6 +16,13 @@ export const setUpSocket = () => {
     // }
     log("client connected");
     // console.log(socket.handshake.headers);
+
+    socket.on("enrolled", () => {
+      socket.emit("refresh");
+    });
+    socket.on("dropped", () => {
+      socket.emit("refresh");
+    });
   });
 
   io.on("disconnect", () => {
