@@ -2,7 +2,7 @@ import { useState, useContext, useEffect } from "react";
 import styles from "./Login.module.css";
 import { Link, useNavigate, useLocation } from "react-router";
 import { authService } from "../../services";
-import { AuthContext } from "../../context/AuthContext";
+import { AuthContext } from "../../context/store";
 
 const Login = () => {
   const [formData, setFormData] = useState({

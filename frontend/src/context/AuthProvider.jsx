@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { authService } from "../services";
-import { AuthContext } from "./AuthContext";
+import { AuthContext } from "./store";
 
 export const AuthProvider = ({ children }) => {
   const [currentUser, setCurrentUser] = useState(null);
@@ -17,7 +17,7 @@ export const AuthProvider = ({ children }) => {
       } finally {
         setIsLoading(false);
       }
-    };
+  };
 
     checkAuth();
   }, []);

@@ -1,14 +1,15 @@
 import styles from "./Courses.module.css";
 
-import { useContext, useState } from "react";
+import { useContext, useState, useEffect } from "react";
 import { NavLink, useSearchParams, useLoaderData } from "react-router";
 
-import { AuthContext } from "../../context/AuthContext";
+import { AuthContext, SocketContext } from "../../context/store";
 import { courseService } from "../../services/courseService";
 import { formatDateToMMDDYYY } from "../../util/helpers";
 
 const Courses = () => {
   const { currentUser } = useContext(AuthContext);
+  const { socket } = useContext(SocketContext);
   const [searchParams, setSearchParams] = useSearchParams();
   const courseData = useLoaderData();
   const [courses, setCourses] = useState(courseData);
@@ -29,6 +30,21 @@ const Courses = () => {
       // Don't need to pass in userId its stored in cookie and sent with request
       // this is just for if there was an admin dashboard
       await courseService.enroll(courseId, currentUser._id);
+
+      setCourses(
+        courses.map((course) => {
+          if (course._id === courseId) {
+            const newCourse = {
+              ...course,
+              enrolledStudents: [...course.enrolledStudents, currentUser._id],
+            };
+            return newCourse;
+          }
+          return course;
+        })
+      );
+
+      socket.emit("enrolled", { courseId });
     } catch (error) {
       console.error(`Error message: ${error.message}`);
       console.error(error.data);
@@ -39,12 +55,45 @@ const Courses = () => {
   const dropCourse = async (courseId) => {
     try {
       await courseService.drop(courseId, currentUser._id);
+
+      setCourses(
+        courses.map((course) => {
+          if (course._id === courseId) {
+            const newCourse = {
+              ...course,
+              enrolledStudents: course.enrolledStudents.filter(
+                (id) => id !== currentUser._id
+              ),
+            };
+            return newCourse;
+          }
+          return course;
+        })
+      );
+
+      socket.emit("dropped", { courseId });
     } catch (error) {
       console.error(`Error message: ${error.message}`);
       console.error(error.data);
       console.info(error);
     }
   };
+
+  useEffect(() => {
+    socket.on("refresh", async ({ courseId }) => {
+      console.log("refreshing courses", courseId);
+      const course = await courseService.getCourse(courseId);
+      setCourses(
+        courses.map((old_course) =>
+          old_course._id === course._id ? course : old_course
+        )
+      );
+    });
+
+    return () => {
+      socket.off("refresh");
+    };
+  }, [socket, courses]);
 
   return (
     <div className={styles.container}>

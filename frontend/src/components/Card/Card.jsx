@@ -2,8 +2,6 @@ import { formatDateToMMDDYYY } from "../../util/helpers";
 
 import styles from "./Card.module.css";
 const Card = ({ card, className }) => {
-  console.log(card);
-
   card.startDate = formatDateToMMDDYYY(card.startDate);
   card.endDate = formatDateToMMDDYYY(card.endDate);
 
