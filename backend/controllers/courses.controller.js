@@ -95,7 +95,7 @@ export const enrollStudent = async (req, res, next) => {
   if (!course)
     return next(createCustomError("Course not found", StatusCodes.NOT_FOUND));
 
-  res.status(StatusCodes.OK).json({ capacity: course.capacity });
+  res.status(StatusCodes.OK).json({ msg: "Student enrolled successfully" });
 };
 
 export const dropCourse = async (req, res, next) => {
