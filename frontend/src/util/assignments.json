@@ -4,7 +4,7 @@
     {
       "day": 2,
       "id": "1",
-      "name": "Course Introduction Quiz",
+      "name": "Quiz",
       "courseCode": "LA 300",
       "dueDate": "11:59 PM",
       "subject": "language-arts"
@@ -13,7 +13,7 @@
     {
       "day": 4,
       "id": "2",
-      "name": "Linear Equations Problem Set",
+      "name": "Math Problem Set",
       "courseCode": "MA 300",
       "dueDate": "3 PM",
       "subject": "math"
@@ -23,7 +23,7 @@
     {
       "day": 7,
       "id": "3",
-      "name": "Lab Safety Quiz",
+      "name": "Lab",
       "courseCode": "SC 300",
       "dueDate": "5 PM",
       "subject": "science"
@@ -32,7 +32,7 @@
     {
       "day": 9,
       "id": "4",
-      "name": "Reading Response 1",
+      "name": "Homework",
       "courseCode": "LA 300",
       "dueDate": "11 AM",
       "subject": "language-arts"
@@ -42,7 +42,7 @@
     {
       "day": 12,
       "id": "5",
-      "name": "Chemical Reactions Lab Report",
+      "name": "Lab Report",
       "courseCode": "SC 300",
       "dueDate": "2 PM",
       "subject": "science"
@@ -51,21 +51,22 @@
     {
       "day": 14,
       "id": "6",
-      "name": "Quadratic Functions Quiz",
+      "name": "Quiz",
       "courseCode": "MA 300",
       "dueDate": "4 PM",
       "subject": "math"
     },
     { "day": 15 },
+    { "day": 16 },
     {
-      "day": 16,
+      "day": 17,
       "id": "7",
-      "name": "Literature Analysis Essay",
+      "name": "Essay",
       "courseCode": "LA 300",
       "dueDate": "11:59 PM",
       "subject": "language-arts"
     },
-    { "day": 17 },
+
     { "day": 18 },
     {
       "day": 19,
@@ -79,7 +80,7 @@
     {
       "day": 21,
       "id": "9",
-      "name": "Vocabulary Quiz",
+      "name": "Quiz",
       "courseCode": "LA 300",
       "dueDate": "10 AM",
       "subject": "language-arts"
@@ -88,7 +89,7 @@
     {
       "day": 23,
       "id": "10",
-      "name": "Trigonometry Test",
+      "name": "Test",
       "courseCode": "MA 300",
       "dueDate": "2 PM",
       "subject": "math"
@@ -98,7 +99,7 @@
     {
       "day": 26,
       "id": "11",
-      "name": "Biology Research Paper",
+      "name": "Research Paper",
       "courseCode": "SC 300",
       "dueDate": "11:59 PM",
       "subject": "science"
@@ -107,7 +108,7 @@
     {
       "day": 28,
       "id": "12",
-      "name": "Poetry Analysis",
+      "name": "Analysis Report",
       "courseCode": "LA 300",
       "dueDate": "3 PM",
       "subject": "language-arts"
