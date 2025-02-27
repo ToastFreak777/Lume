@@ -20,7 +20,6 @@ import {
   newCourseLoader,
   editCourseLoader,
   messageLoader,
-  homeLoader,
 } from "./util/loaders";
 
 const Layout = () => (
