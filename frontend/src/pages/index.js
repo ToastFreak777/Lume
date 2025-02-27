@@ -7,6 +7,7 @@ import Courses from "./Courses/Courses";
 import Messages from "./Messages/Messages";
 import NewCourse from "./Courses/NewCourse";
 import EditCourse from "./Courses/EditCourse";
+import NotFound from "./NotFound/NotFound";
 
 export {
   Home,
@@ -18,4 +19,5 @@ export {
   Messages,
   NewCourse,
   EditCourse,
+  NotFound,
 };

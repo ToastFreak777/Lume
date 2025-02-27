@@ -14,7 +14,8 @@ export const fetchWithAuth = async (endpoint, options = {}) => {
     const errorData = await response.json();
     const error = new Error(errorData.msg);
     error.data = errorData.stack;
-    throw error;
+    return null;
+    // throw error;
   }
 
   return await response.json();

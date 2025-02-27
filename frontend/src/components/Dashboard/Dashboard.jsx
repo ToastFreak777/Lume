@@ -1,49 +1,36 @@
 import styles from "./Dashboard.module.css";
+import { useState, useEffect } from "react";
 
-import { Card } from "../index";
-import { MdNoEncryption } from "react-icons/md";
+import { Card, Loading } from "../index";
+import { courseService } from "../../services";
 
-const Dashboard = ({ userCourses }) => {
-  const cards = [
-    {
-      ClassName: "English 101",
-      Subtitle: "some text",
-      schedule: "Monday 11 AM",
-      capacity: 10,
-      instructor: "John Doe",
-    },
-    {
-      ClassName: "English 101",
-      Subtitle: "some text",
-      schedule: "Monday 11 AM",
-      capacity: 10,
-      instructor: "John Doe",
-    },
-    {
-      ClassName: "English 101",
-      Subtitle: "some text",
-      schedule: "Monday 11 AM",
-      capacity: 10,
-      instructor: "John Doe",
-    },
-    {
-      ClassName: "English 101",
-      Subtitle: "some text",
-      schedule: "Monday 11 AM",
-      capacity: 10,
-      instructor: "John Doe",
-    },
-  ];
+const Dashboard = () => {
+  const [courses, setCourses] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
 
-  // console.log(userCourses);
-  // userCourses = [];
+  useEffect(() => {
+    const fetchUserCourses = async () => {
+      setIsLoading(true);
+      try {
+        const data = await courseService.getAllCoursesOfUser();
+        setCourses(data.courses);
+      } catch (error) {
+        console.log(error);
+      }
+      setIsLoading(false);
+    };
+
+    fetchUserCourses();
+  }, [setIsLoading]);
+
+  if (isLoading) return <Loading />;
 
   return (
     <main className={styles.dashboard}>
       <div className={styles.content}>
         <div className={styles.classes}>
-          {userCourses.length > 0 ? (
-            userCourses.map((course) => (
+          {courses.length > 0 ? (
+            courses.map((course) => (
               <Card key={course._id} card={course} className={styles.class} />
             ))
           ) : (

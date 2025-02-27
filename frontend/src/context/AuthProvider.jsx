@@ -13,11 +13,11 @@ export const AuthProvider = ({ children }) => {
         updateCurrentUser(userData);
       } catch (error) {
         setCurrentUser(null);
-        console.error(error);
+        // console.error(error);
       } finally {
         setIsLoading(false);
       }
-  };
+    };
 
     checkAuth();
   }, []);
@@ -25,7 +25,9 @@ export const AuthProvider = ({ children }) => {
   const updateCurrentUser = (data) => setCurrentUser(data);
 
   return (
-    <AuthContext.Provider value={{ currentUser, updateCurrentUser, isLoading }}>
+    <AuthContext.Provider
+      value={{ currentUser, updateCurrentUser, isLoading, setIsLoading }}
+    >
       {children}
     </AuthContext.Provider>
   );

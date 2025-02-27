@@ -1,22 +1,24 @@
 import { useContext } from "react";
 import { AuthContext } from "../../context/store";
-import { Navigate, useLocation } from "react-router";
+import { useLocation, useNavigate } from "react-router";
 import Loading from "../Loading/Loading";
-const ProtectedRoute = ({ children }) => {
+const AuthRequired = ({ children }) => {
   const { currentUser, isLoading } = useContext(AuthContext);
   const location = useLocation();
+  const navigate = useNavigate();
 
   if (isLoading) {
     return <Loading />;
   }
 
   if (!currentUser) {
-    return <Navigate to="/login" state={{ from: location }} replace />;
+    navigate("/login", { state: { from: location }, replace: true });
+    return;
   }
 
   return children;
 };
 
-export default ProtectedRoute;
+export default AuthRequired;
 
-ProtectedRoute.prototype = {};
+AuthRequired.prototype = {};

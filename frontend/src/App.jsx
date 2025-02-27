@@ -1,4 +1,5 @@
 import { createBrowserRouter, RouterProvider, Outlet } from "react-router";
+
 import {
   Grades,
   Home,
@@ -8,8 +9,12 @@ import {
   Courses,
   NewCourse,
   Messages,
+  EditCourse,
+  NotFound,
 } from "./pages";
-import { Navbar, Searchbar, ProtectedRoute } from "./components";
+
+import { Navbar, Searchbar, AuthRequired, Err } from "./components";
+
 import {
   courseLoader,
   newCourseLoader,
@@ -17,7 +22,6 @@ import {
   messageLoader,
   homeLoader,
 } from "./util/loaders";
-import EditCourse from "./pages/Courses/EditCourse";
 
 const Layout = () => (
   <div className="app">
@@ -33,15 +37,14 @@ const routes = [
   {
     path: "/",
     element: (
-      <ProtectedRoute>
+      <AuthRequired>
         <Layout />
-      </ProtectedRoute>
+      </AuthRequired>
     ),
     children: [
       {
         path: "/",
         element: <Home />,
-        loader: homeLoader,
       },
       {
         path: "courses",
@@ -62,6 +65,7 @@ const routes = [
         element: <Notes />,
       },
     ],
+    errorElement: <Err />,
   },
   {
     path: "/login",
@@ -80,6 +84,10 @@ const routes = [
     path: "courses/edit/:id",
     element: <EditCourse />,
     loader: editCourseLoader,
+  },
+  {
+    path: "*",
+    element: <NotFound />,
   },
 ];
 
