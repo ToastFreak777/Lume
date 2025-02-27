@@ -8,12 +8,14 @@ import {
   deleteAttendance,
 } from "../controllers/attendance.controller.js";
 
+import authMiddleware from "../middleware/authentication.js";
+
 const router = Router();
 
-router.get("/", getAllAttendance);
-router.get("/:id", getAttendance);
-router.post("/", addAttendance);
-router.put("/:id", updateAttendance);
-router.delete("/:id", deleteAttendance);
+router.get("/", authMiddleware, getAllAttendance);
+router.get("/:id", authMiddleware, getAttendance);
+router.post("/", authMiddleware, addAttendance);
+router.put("/:id", authMiddleware, updateAttendance);
+router.delete("/:id", authMiddleware, deleteAttendance);
 
 export default router;
