@@ -1,43 +1,39 @@
-# Lume: School Analytics Dashboard
+# Lume: School Dashboard
 
-A modern, real-time dashboard designed to track and analyze student performance, attendance, and other school-related data. Built with modern technologies, Lume offers a seamless experience for educators, administrators, and students to monitor progress and make informed decisions.
+A modern, real-time dashboard designed to track and analyze student performance, attendance, and other school-related
+data. Built with modern technologies, Lume offers a seamless experience for educators, administrators, and students to
+monitor progress and make informed decisions.
 
 ![Version](https://img.shields.io/badge/version-1.0.0-green.svg)
 
 ## Overview
 
-Lume is a powerful, real-time **School Analytics Dashboard** that provides dynamic data visualization and monitoring capabilities for tracking student performance, attendance, and class engagement. It is built with **React** (Next.js), **Node.js**, and integrates with **MongoDB** for data storage. Lume helps improve administrative decision-making by providing an interactive and insightful interface for schools.
+Lume is a real-time **School Dashboard** that provides data visualization and monitoring
+capabilities for tracking student performance, attendance. It is built with the **MERN** stack, **Express** **React**, *
+*Node.js**,
+and integrates with
+**MongoDB** for data storage.
 
 ## Features
 
 ### Core Features
 
 - [ ] **Real-time Data Visualization**
-  - Interactive charts and graphs to display **student performance**, **attendance rates**, and more
-  - **Trend analysis** for student grades and attendance
+    - Charts & Graphs to display **student performance**, **attendance rates**, and more
 - [x] **User Authentication**
-  - Secure login/signup with s**role-based access**
-  - authentication & authroization
+    - Secure login/signup with z**role-based access**
+    - Authentication & Authorization
+    - Route Protection
 - [ ] **Role-Based Access Control**
-  - Admin dashboard for managing teachers and students
-  - Teachers can view their own class data and student performance
-  - Students and parents can access individual progress and attendance records
-- [ ] **Advanced Data Filtering & Sorting**
-  - Filter students by grades, subject, and attendance
-  - Date range filtering for performance over time
+    - [x] Admin dashboard for managing teachers and students
+    - Teachers can view their own class data and student performance
+    - Students and parents can access individual progress and attendance records
+- [ ] **Advanced Data Fetching**
+    - [x] Filtering
+    - Sort
 - [ ] **Notifications & Alerts**
-  - Alerts for **low attendance** or **failing grades**
-  - **Upcoming assignments** or deadlines
-
-### Bonus Features
-
-- [ ] **Data Export Capabilities**
-  - Export data to **CSV/PDF** for reports
-- [ ] **Customizable Dashboard Widgets**
-  - Users can customize their dashboards to show relevant data
-- [ ] **Dark/Light Theme Support**
-  - Toggle between dark and light mode for better UX
-- [ ] **Password recovery for users**
+    - Alerts for **low attendance** or **failing grades**
+    - **Upcoming assignments** or deadlines
 
 ## Getting Started
 
@@ -74,7 +70,7 @@ yarn dev
 
 4. **Access the Dashboard**
 
-Visit http://localhost:3000 in your web browser to access the dashboard.
+Visit http://localhost:5174 in your web browser to access the dashboard.
 
 ## Usage
 
@@ -94,6 +90,6 @@ Contributions are welcome! Please feel free to submit a Pull Request.
 - Push to the branch (git push origin feature/AmazingFeature)
 - Open a Pull Request
 
-## Contact
+## Repo
 
 Project Link: https://github.com/ToastFreak777/Lume
