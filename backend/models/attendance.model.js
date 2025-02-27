@@ -26,6 +26,6 @@ const AttendanceSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
-AttendanceSchema.index({ userId: 1 });
+// AttendanceSchema.index({ userId: 1 });
 
 export default mongoose.model("Attendance", AttendanceSchema);
