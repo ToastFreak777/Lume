@@ -1,106 +1,115 @@
-import { StatusCodes } from "http-status-codes";
+import {StatusCodes} from "http-status-codes";
 import Assignments from "../models/assignments.model.js";
 import Users from "../models/users.model.js";
-import { validateFields } from "../utils/helpers.js";
-import { createCustomError } from "../errors/custom-error.js";
+import {validateFields} from "../utils/helpers.js";
+import {createCustomError} from "../errors/custom-error.js";
 
 export const getAssignments = async (req, res) => {
-  const assignments = await Assignments.find({});
+    const {courseIds, sort = 'dueDate', order = 'asc'} = req.query;
+    const ids = courseIds ? courseIds.split(',') : [];
 
-  res.status(StatusCodes.OK).json(assignments);
+    const sortOrder = order === 'asc' ? 1 : -1;
+
+    const assignments = await Assignments.find({course: {$in: ids}})
+        .populate("course")
+        .sort({[sort]: sortOrder});
+
+
+    res.status(StatusCodes.OK).json(assignments);
 };
-export const getAssignmentsForCourse = async (req, res) => {
-  const assignments = await Assignments.find({ course: req.body.course });
 
-  res.status(StatusCodes.OK).json(assignments);
+export const getAssignmentsForCourse = async (req, res) => {
+    const assignments = await Assignments.find({course: req.body.course});
+
+    res.status(StatusCodes.OK).json(assignments);
 };
 
 export const getAssignment = async (req, res) => {
-  const assignment = await Assignments.find({ _id: req.params.id });
+    const assignment = await Assignments.find({_id: req.params.id});
 
-  res.status(StatusCodes.OK).json(assignment);
+    res.status(StatusCodes.OK).json(assignment);
 };
 
 export const addAssignment = async (req, res, next) => {
-  const requiredFields = {
-    name: "Assignment Name",
-    course: "Course Id",
-    dueDate: "Due Date",
-    maxGrade: "Max Grade",
-  };
+    const requiredFields = {
+        name: "Assignment Name",
+        course: "Course Id",
+        dueDate: "Due Date",
+        maxGrade: "Max Grade",
+    };
 
-  if (
-    !validateFields(
-      requiredFields,
-      req.body,
-      next,
-      createCustomError,
-      StatusCodes.BAD_REQUEST
+    if (
+        !validateFields(
+            requiredFields,
+            req.body,
+            next,
+            createCustomError,
+            StatusCodes.BAD_REQUEST
+        )
     )
-  )
-    return;
+        return;
 
-  const user = await Users.findById(req.user.id).lean();
+    const user = await Users.findById(req.user.id).lean();
 
-  const notFaculty = !["Admin", "Instructor"].includes(user.role);
+    const notFaculty = !["Admin", "Instructor"].includes(user.role);
 
-  if (notFaculty)
-    return next(
-      createCustomError(
-        "You're not authorized to perform this action",
-        StatusCodes.BAD_REQUEST
-      )
-    );
+    if (notFaculty)
+        return next(
+            createCustomError(
+                "You're not authorized to perform this action",
+                StatusCodes.BAD_REQUEST
+            )
+        );
 
-  const assignment = await Assignments.create(req.body);
-  res.status(StatusCodes.CREATED).json({ msg: `${assignment.name} created` });
+    const assignment = await Assignments.create(req.body);
+    res.status(StatusCodes.CREATED).json({msg: `${assignment.name} created`});
 };
 
 export const updateAssignment = async (req, res) => {
-  const user = await Users.findById(req.user.id).lean();
+    const user = await Users.findById(req.user.id).lean();
 
-  const notFaculty = !["Admin", "Instructor"].includes(user.role);
+    const notFaculty = !["Admin", "Instructor"].includes(user.role);
 
-  if (notFaculty)
-    return next(
-      createCustomError(
-        "You're not authorized to perform this action",
-        StatusCodes.BAD_REQUEST
-      )
+    if (notFaculty)
+        return next(
+            createCustomError(
+                "You're not authorized to perform this action",
+                StatusCodes.BAD_REQUEST
+            )
+        );
+
+    const assignment = await Assignments.findByIdAndUpdate(
+        req.params.id,
+        {
+            ...req.body,
+        },
+        {new: true}
     );
 
-  const assignment = await Assignments.findByIdAndUpdate(
-    req.params.id,
-    {
-      ...req.body,
-    },
-    { new: true }
-  );
-
-  res
-    .status(StatusCodes.OK)
-    .json({
-      msg: `${assignment.name} assignment updated successfully`,
-      assignment,
-    });
+    res
+        .status(StatusCodes.OK)
+        .json({
+            msg: `${assignment.name} assignment updated successfully`,
+            assignment,
+        });
 };
 
 export const deleteAssignment = async (req, res) => {
-  const user = await Users.findById(req.user.id).lean();
+    const user = await Users.findById(req.user.id).lean();
 
-  const notFaculty = !["Admin", "Instructor"].includes(user.role);
+    const notFaculty = !["Admin", "Instructor"].includes(user.role);
 
-  if (notFaculty)
-    return next(
-      createCustomError(
-        "You're not authorized to perform this action",
-        StatusCodes.BAD_REQUEST
-      )
-    );
+    if (notFaculty)
+        return next(
+            createCustomError(
+                "You're not authorized to perform this action",
+                StatusCodes.BAD_REQUEST
+            )
+        );
 
-  const assignment = await Assignments.findByIdAndDelete(req.params.id);
+    const assignment = await Assignments.findByIdAndDelete(req.params.id);
 
-  res
-    .status(StatusCodes.OK)
-    .json({ msg: `${assignment.name} assignment deleted successfully` });
+    res
+        .status(StatusCodes.OK)
+        .json({msg: `${assignment.name} assignment deleted successfully`});
 };

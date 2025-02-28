@@ -1,63 +1,65 @@
 .box {
-  padding: 0.25rem;
-  height: 100%;
-  width: 100%;
-  position: relative;
-
-  p {
-    margin: 0;
-  }
-
-  .day {
-    width: 1.5em;
-    height: 1.5em;
-    border-radius: 50%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 0.5rem;
-    font-weight: var(--fw-bold);
-  }
-
-  .info {
-    position: absolute;
-    bottom: 0.5rem;
-    left: 0.5rem;
-    right: 0.5rem;
-    font-size: var(--fs-200);
-    color: black;
+    padding: 0.25rem;
+    height: 100%;
+    width: 100%;
+    /*position: relative;*/
 
 
-    .name {
-      font-weight: var(--fw-bold);
-      margin-bottom: 0.25rem;
+    p {
+        margin: 0;
     }
 
-    .courseCode,
-    .dueDate {
-      font-size: var(--fs-200);
+    .day {
+        width: 1.5em;
+        height: 1.5em;
+        border-radius: 50%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 0.5rem;
+        font-weight: var(--fw-bold);
+
     }
-  }
+
+    .info {
+        position: absolute;
+        bottom: 0.5rem;
+        left: 0.5rem;
+        right: 0.5rem;
+        font-size: var(--fs-200);
+        color: black;
+
+
+        .name {
+            font-weight: var(--fw-bold);
+            margin-bottom: 0.25rem;
+        }
+
+        .courseCode,
+        .dueDate {
+            font-size: var(--fs-200);
+        }
+    }
 }
 
 .language-arts {
-  background-color: hsl(260, 100%, 96%);
-  color: hsl(254, 100%, 79%);
-  /* border: 1px solid hsl(254, 100%, 79%); */
+    background-color: hsl(260, 100%, 96%);
+    color: hsl(254, 100%, 79%);
+    /* border: 1px solid hsl(254, 100%, 79%); */
 }
 
 .science {
-  background-color: hsl(91, 94%, 93%);
-  color: hsl(91, 57%, 65%);
-  /* border: 1px solid hsl(91, 57%, 65%); */
+    background-color: hsl(91, 94%, 93%);
+    color: hsl(91, 57%, 65%);
+    /* border: 1px solid hsl(91, 57%, 65%); */
 }
 
 .math {
-  background-color: hsl(216, 100%, 94%);
-  color: hsl(216, 100%, 76%);
-  /* border: 1px solid hsl(216, 100%, 76%); */
+    background-color: hsl(216, 100%, 94%);
+    color: hsl(216, 100%, 76%);
+    /* border: 1px solid hsl(216, 100%, 76%); */
 }
 
 .dayNumber {
-  background-color: white;
+    background-color: white;
 }
