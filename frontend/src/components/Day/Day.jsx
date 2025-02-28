@@ -1,7 +1,7 @@
 import styles from "./Day.module.css";
 import PropTypes from "prop-types";
 
-const Day = ({assignment}) => {
+const Day = ({assignment, day}) => {
 
 
     return (
@@ -9,7 +9,7 @@ const Day = ({assignment}) => {
             {assignment?.id ? (
                 <div className={`${styles.box} ${styles[assignment.subject]}`}>
                     <p className={`${styles.day} ${styles[assignment.subject]} ${styles.dayNumber}`}>
-                        {assignment.day}
+                        {day}
                     </p>
                     <div className={styles.info}>
                         <p className={styles.name}>{assignment.name}</p>
@@ -18,7 +18,7 @@ const Day = ({assignment}) => {
                     </div>
                 </div>
             ) : (
-                <div className={styles.box}>{assignment.day}</div>
+                <div className={styles.box}>{day}</div>
             )}
         </>
     );

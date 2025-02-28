@@ -6,7 +6,7 @@ import {CiCalendar} from "react-icons/ci";
 import {Day} from "../index";
 
 import data from "../../util/assignments.json";
-import {useState} from "react";
+import {useEffect, useState} from "react";
 
 const Calendar = ({assignments}) => {
     // console.log(assignments);
@@ -16,6 +16,16 @@ const Calendar = ({assignments}) => {
         tempDate.setDate(new Date().getDate() + 21);
         return tempDate;
     });
+    const [days, setDays] = useState([])
+
+    useEffect(() => {
+        const daysArray = [];
+        for (let currentDay = startDate.getTime(); currentDay < endDate.getTime(); currentDay += 86400000) {
+            const dayOfMonth = new Date(currentDay).getDate();
+            daysArray.push(dayOfMonth);
+        }
+        setDays(daysArray);
+    }, [startDate, endDate]);
 
 
     const formatDate = (date) => {
@@ -60,9 +70,9 @@ const Calendar = ({assignments}) => {
                 </div>
             </div>
             <div className={styles.calendarBoard}>
-                {data.assignments.map((assignment, i) => (
+                {days.map((day, i) => (
                     <div className={styles.box} key={i}>
-                        <Day assignment={assignment}/>
+                        <Day assignment={data.assignments[i]} day={day}/>
                     </div>
                 ))}
             </div>
