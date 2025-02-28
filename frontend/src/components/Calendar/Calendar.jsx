@@ -17,18 +17,8 @@ const Calendar = ({assignments}) => {
         return tempDate;
     });
 
-    const _ = (daysToAdd) => {
-        const today = new Date("Janurary 1 2025");
-        const begin = today.toLocaleDateString("en-US", options);
-        today.setDate(today.getDate() + daysToAdd);
-        const end = today.toLocaleDateString("en-US", options);
-
-
-        return `${begin} - ${end}`;
-    }
 
     const formatDate = (date) => {
-        console.log(date);
         const options = {
             year: "numeric",
             month: "short",
@@ -39,24 +29,18 @@ const Calendar = ({assignments}) => {
 
     const changeCalendar = (increase) => {
         setStartDate(prevStartDate => {
-            const newStartDate = new Date(prevStartDate); // Copy of the current start date
-            if (increase) {
-                newStartDate.setDate(newStartDate.getDate() + 21); // Move start date forward by 21 days
-            } else {
-                newStartDate.setDate(newStartDate.getDate() - 21); // Move start date backward by 21 days
-            }
-            // Update the startDate first
+            const newStartDate = new Date(prevStartDate);
+            if (increase) newStartDate.setDate(newStartDate.getDate() + 21);
+            else newStartDate.setDate(newStartDate.getDate() - 21);
+
             return newStartDate;
         });
 
         setEndDate(prevEndDate => {
-            const newEndDate = new Date(prevEndDate); // Copy of the current end date
-            if (increase) {
-                newEndDate.setDate(newEndDate.getDate() + 21); // Set end date 20 days ahead
-            } else {
-                newEndDate.setDate(newEndDate.getDate() - 21); // Set end date 20 days behind
-            }
-            // Update the endDate separately
+            const newEndDate = new Date(prevEndDate);
+            if (increase) newEndDate.setDate(newEndDate.getDate() + 21);
+            else newEndDate.setDate(newEndDate.getDate() - 21);
+
             return newEndDate;
         });
     };
