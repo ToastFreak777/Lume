@@ -84,34 +84,6 @@
       "courseCode": "LA 300",
       "dueDate": "10 AM",
       "subject": "language-arts"
-    },
-    { "day": 22 },
-    {
-      "day": 23,
-      "id": "10",
-      "name": "Test",
-      "courseCode": "MA 300",
-      "dueDate": "2 PM",
-      "subject": "math"
-    },
-    { "day": 24 },
-    { "day": 25 },
-    {
-      "day": 26,
-      "id": "11",
-      "name": "Research Paper",
-      "courseCode": "SC 300",
-      "dueDate": "11:59 PM",
-      "subject": "science"
-    },
-    { "day": 27 },
-    {
-      "day": 28,
-      "id": "12",
-      "name": "Analysis Report",
-      "courseCode": "LA 300",
-      "dueDate": "3 PM",
-      "subject": "language-arts"
     }
   ]
 }
