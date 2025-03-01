@@ -5,21 +5,23 @@ import {validateFields} from "../utils/helpers.js";
 import {createCustomError} from "../errors/custom-error.js";
 
 export const getAssignments = async (req, res) => {
+    const assignments = await Assignments.find({});
+    res.status(StatusCodes.OK).json(assignments);
+};
+
+export const getAssignmentsForCourse = async (req, res) => {
     const {courseIds, sort = 'dueDate', order = 'asc'} = req.query;
     const ids = courseIds ? courseIds.split(',') : [];
 
     const sortOrder = order === 'asc' ? 1 : -1;
 
     const assignments = await Assignments.find({course: {$in: ids}})
-        .populate("course")
+        .populate({
+            path: "course",
+            populate: {path: "subject",}
+        })
         .sort({[sort]: sortOrder});
 
-
-    res.status(StatusCodes.OK).json(assignments);
-};
-
-export const getAssignmentsForCourse = async (req, res) => {
-    const assignments = await Assignments.find({course: req.body.course});
 
     res.status(StatusCodes.OK).json(assignments);
 };

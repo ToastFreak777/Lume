@@ -5,28 +5,45 @@ import {CiCalendar} from "react-icons/ci";
 
 import {Day} from "../index";
 
-import data from "../../util/assignments.json";
 import {useEffect, useState} from "react";
 
 const Calendar = ({assignments}) => {
-    // console.log(assignments);
-    const [startDate, setStartDate] = useState(new Date());
+    const [startDate, setStartDate] = useState(() => {
+        const now = new Date();
+        now.setHours(0, 0, 0, 0);
+        return now;
+    });
     const [endDate, setEndDate] = useState(() => {
         const tempDate = new Date(startDate);
         tempDate.setDate(new Date().getDate() + 21);
         return tempDate;
     });
-    const [days, setDays] = useState([])
+    const [calendarDays, setCalendarDays] = useState([])
+    const [assignmentsByDate, setAssignmentsByDate] = useState({})
 
     useEffect(() => {
-        const daysArray = [];
+        const calendarDaysArray = [];
         for (let currentDay = startDate.getTime(); currentDay < endDate.getTime(); currentDay += 86400000) {
-            const dayOfMonth = new Date(currentDay).getDate();
-            daysArray.push(dayOfMonth);
+            const dayOfMonth = new Date(currentDay);
+            calendarDaysArray.push(dayOfMonth);
         }
-        setDays(daysArray);
+        setCalendarDays(calendarDaysArray);
     }, [startDate, endDate]);
 
+    useEffect(() => {
+        if (!assignments || !assignments.length) return;
+
+        const mappedAssignments = {};
+        assignments.forEach(assignment => {
+            const dueDate = new Date(assignment.dueDate);
+            dueDate.setHours(0, 0, 0, 0);
+
+            const dateKey = dueDate.toISOString().split('T')[0];
+            mappedAssignments[dateKey] = assignment;
+        });
+
+        setAssignmentsByDate(mappedAssignments);
+    }, [assignments])
 
     const formatDate = (date) => {
         const options = {
@@ -70,11 +87,15 @@ const Calendar = ({assignments}) => {
                 </div>
             </div>
             <div className={styles.calendarBoard}>
-                {days.map((day, i) => (
-                    <div className={styles.box} key={i}>
-                        <Day assignment={data.assignments[i]} day={day}/>
-                    </div>
-                ))}
+                {calendarDays.map((day) => {
+                    const dateKey = day.toISOString().split('T')[0];
+                    const assignment = assignmentsByDate[dateKey];
+                    return (
+                        <div className={styles.box} key={dateKey}>
+                            <Day assignment={assignment} day={day.getDate()}/>
+                        </div>
+                    )
+                })}
             </div>
         </div>
     );
