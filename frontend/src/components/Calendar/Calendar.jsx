@@ -5,30 +5,47 @@ import {CiCalendar} from "react-icons/ci";
 
 import {Day} from "../index";
 
-import data from "../../util/assignments.json";
-import {useState} from "react";
+import {useEffect, useState} from "react";
 
 const Calendar = ({assignments}) => {
-    // console.log(assignments);
-    const [startDate, setStartDate] = useState(new Date());
+    const [startDate, setStartDate] = useState(() => {
+        const now = new Date();
+        now.setHours(0, 0, 0, 0);
+        return now;
+    });
     const [endDate, setEndDate] = useState(() => {
         const tempDate = new Date(startDate);
         tempDate.setDate(new Date().getDate() + 21);
         return tempDate;
     });
+    const [calendarDays, setCalendarDays] = useState([])
+    const [assignmentsByDate, setAssignmentsByDate] = useState({})
 
-    const _ = (daysToAdd) => {
-        const today = new Date("Janurary 1 2025");
-        const begin = today.toLocaleDateString("en-US", options);
-        today.setDate(today.getDate() + daysToAdd);
-        const end = today.toLocaleDateString("en-US", options);
+    useEffect(() => {
+        const calendarDaysArray = [];
+        for (let currentDay = startDate.getTime(); currentDay < endDate.getTime(); currentDay += 86400000) {
+            const dayOfMonth = new Date(currentDay);
+            calendarDaysArray.push(dayOfMonth);
+        }
+        setCalendarDays(calendarDaysArray);
+    }, [startDate, endDate]);
 
+    useEffect(() => {
+        if (!assignments || !assignments.length) return;
 
-        return `${begin} - ${end}`;
-    }
+        const mappedAssignments = {};
+        assignments.forEach(assignment => {
+            const dueDate = new Date(assignment.dueDate);
+            dueDate.setHours(0, 0, 0, 0);
+
+            const dateKey = dueDate.toISOString().split('T')[0];
+            mappedAssignments[dateKey] = assignment;
+        });
+
+        setAssignmentsByDate(mappedAssignments);
+    }, [assignments])
 
     const formatDate = (date) => {
-        console.log(date);
         const options = {
             year: "numeric",
             month: "short",
@@ -39,24 +56,18 @@ const Calendar = ({assignments}) => {
 
     const changeCalendar = (increase) => {
         setStartDate(prevStartDate => {
-            const newStartDate = new Date(prevStartDate); // Copy of the current start date
-            if (increase) {
-                newStartDate.setDate(newStartDate.getDate() + 21); // Move start date forward by 21 days
-            } else {
-                newStartDate.setDate(newStartDate.getDate() - 21); // Move start date backward by 21 days
-            }
-            // Update the startDate first
+            const newStartDate = new Date(prevStartDate);
+            if (increase) newStartDate.setDate(newStartDate.getDate() + 21);
+            else newStartDate.setDate(newStartDate.getDate() - 21);
+
             return newStartDate;
         });
 
         setEndDate(prevEndDate => {
-            const newEndDate = new Date(prevEndDate); // Copy of the current end date
-            if (increase) {
-                newEndDate.setDate(newEndDate.getDate() + 21); // Set end date 20 days ahead
-            } else {
-                newEndDate.setDate(newEndDate.getDate() - 21); // Set end date 20 days behind
-            }
-            // Update the endDate separately
+            const newEndDate = new Date(prevEndDate);
+            if (increase) newEndDate.setDate(newEndDate.getDate() + 21);
+            else newEndDate.setDate(newEndDate.getDate() - 21);
+
             return newEndDate;
         });
     };
@@ -76,11 +87,15 @@ const Calendar = ({assignments}) => {
                 </div>
             </div>
             <div className={styles.calendarBoard}>
-                {data.assignments.map((assignment, i) => (
-                    <div className={styles.box} key={i}>
-                        <Day assignment={assignment}/>
-                    </div>
-                ))}
+                {calendarDays.map((day) => {
+                    const dateKey = day.toISOString().split('T')[0];
+                    const assignment = assignmentsByDate[dateKey];
+                    return (
+                        <div className={styles.box} key={dateKey}>
+                            <Day assignment={assignment} day={day.getDate()}/>
+                        </div>
+                    )
+                })}
             </div>
         </div>
     );
