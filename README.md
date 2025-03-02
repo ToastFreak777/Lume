@@ -9,17 +9,17 @@ monitor progress and make informed decisions.
 ## Overview
 
 Lume is a real-time **School Dashboard** that provides data visualization and monitoring
-capabilities for tracking student performance, attendance. It is built with the **MERN** stack, **Express** **React**, *
-*Node.js**,
-and integrates with
-**MongoDB** for data storage.
+capabilities for tracking student performance, attendance. It is built with the **MERN** stack (**MongoDB, Express,
+React, and Node.js)** and integrates real-time updates using Socket.io, a custom-built UI with React and CSS, and
+full-stack integration with Node.js and Mongoose for robust data storage and management.
 
 ## Features
 
 ### Core Features
 
-- [ ] **Real-time Data Visualization**
-    - Charts & Graphs to display **student performance**, **attendance rates**, and more
+- [ ] **Real-time Data Visualization** (mock)
+    - Charts & Graphs to display **student performance**, **attendance rates**, and more powered by **Socket.io** for
+      live updates.
 - [x] **User Authentication**
     - Secure login/signup with z**role-based access**
     - Authentication & Authorization
@@ -27,13 +27,26 @@ and integrates with
 - [ ] **Role-Based Access Control**
     - [x] Admin dashboard for managing teachers and students
     - Teachers can view their own class data and student performance
-    - Students and parents can access individual progress and attendance records
-- [ ] **Advanced Data Fetching**
-    - [x] Filtering
-    - Sort
+    - Students and parents can access individual progress and attendance records (mock)
+- [X] **Advanced Data Fetching**
+    - [] Filtering
+    - [] Sort
 - [ ] **Notifications & Alerts**
     - Alerts for **low attendance** or **failing grades**
     - **Upcoming assignments** or deadlines
+
+# Note features labled as "mock" are currently placeholders for demonstration purposes and are not yet fully functional.
+
+## Strengths
+
+- **Real-time Updates**: Leveraging Socket.io, Lume ensures data is updated instantly across all users, providing a
+  dynamic
+  and responsive experience.
+- **Custom-Built UI**: Designed with React and CSS, the interface is intuitive, visually appealing, and tailored to the
+  needs of school users.
+- **Full-Stack Integration**: Built with Node.js and Mongoose, Lume seamlessly connects the front-end to a MongoDB
+  backend
+  for efficient data handling.
 
 ## Getting Started
 
