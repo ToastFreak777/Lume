@@ -2,12 +2,15 @@ import {Calendar, Dashboard, Loading} from "../../components";
 
 import styles from "./Home.module.css";
 import {assignmentService, courseService} from "../../services/index.js";
-import {useEffect, useState} from "react";
+import {useContext, useEffect, useState} from "react";
+import {SocketContext} from "../../context/store";
 
 const Home = () => {
     const [courses, setCourses] = useState([]);
     const [assignments, setAssignments] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
+    const [refreshTrigger, setRefreshTrigger] = useState(0)
+    const {socket} = useContext(SocketContext);
 
 
     useEffect(() => {
@@ -15,7 +18,9 @@ const Home = () => {
             setIsLoading(true);
             try {
                 const data = await courseService.getAllCoursesOfUser();
-                const assignments = await assignmentService.getAssignmentsFromCourse(data.courses)
+                const assignments = await assignmentService.getAssignmentsFromCourse(
+                    data.courses
+                );
                 setCourses(data.courses);
                 setAssignments(assignments);
             } catch (error) {
@@ -25,8 +30,18 @@ const Home = () => {
         };
 
         fetchUserCourses();
-    }, [setIsLoading]);
+    }, [setIsLoading, refreshTrigger]);
 
+    useEffect(() => {
+        socket.on("new-assignment", async ({assignment}) => {
+            console.log('Assignmnet updated', assignment);
+            setRefreshTrigger(prev => prev + 1);
+        });
+
+        return () => {
+            socket.off("new-assignment");
+        };
+    }, [socket]);
 
     if (isLoading) return <Loading/>;
 

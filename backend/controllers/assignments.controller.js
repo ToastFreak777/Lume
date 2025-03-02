@@ -4,24 +4,25 @@ import Users from "../models/users.model.js";
 import {validateFields} from "../utils/helpers.js";
 import {createCustomError} from "../errors/custom-error.js";
 
+import {getIO} from "../socket.js";
+
 export const getAssignments = async (req, res) => {
     const assignments = await Assignments.find({});
     res.status(StatusCodes.OK).json(assignments);
 };
 
 export const getAssignmentsForCourse = async (req, res) => {
-    const {courseIds, sort = 'dueDate', order = 'asc'} = req.query;
-    const ids = courseIds ? courseIds.split(',') : [];
+    const {courseIds, sort = "dueDate", order = "asc"} = req.query;
+    const ids = courseIds ? courseIds.split(",") : [];
 
-    const sortOrder = order === 'asc' ? 1 : -1;
+    const sortOrder = order === "asc" ? 1 : -1;
 
     const assignments = await Assignments.find({course: {$in: ids}})
         .populate({
             path: "course",
-            populate: {path: "subject",}
+            populate: {path: "subject"},
         })
         .sort({[sort]: sortOrder});
-
 
     res.status(StatusCodes.OK).json(assignments);
 };
@@ -64,6 +65,8 @@ export const addAssignment = async (req, res, next) => {
         );
 
     const assignment = await Assignments.create(req.body);
+    const io = getIO();
+    io.emit("new-assignment", {assignment: assignment});
     res.status(StatusCodes.CREATED).json({msg: `${assignment.name} created`});
 };
 
@@ -88,12 +91,10 @@ export const updateAssignment = async (req, res) => {
         {new: true}
     );
 
-    res
-        .status(StatusCodes.OK)
-        .json({
-            msg: `${assignment.name} assignment updated successfully`,
-            assignment,
-        });
+    res.status(StatusCodes.OK).json({
+        msg: `${assignment.name} assignment updated successfully`,
+        assignment,
+    });
 };
 
 export const deleteAssignment = async (req, res) => {

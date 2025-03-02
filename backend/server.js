@@ -12,10 +12,11 @@ import cookieParser from "cookie-parser";
 
 dotenv.config();
 
-import { setUpSocket } from "./socket.js";
+import { initializeSocket } from "./socket.js";
 
 const app = express();
-setUpSocket();
+const io = initializeSocket();
+io.listen(process.env.SOCKET_PORT);
 
 // Logger
 import morgan from "morgan";

@@ -1,9 +1,9 @@
 import { Server } from "socket.io";
 
-export const setUpSocket = () => {
-  // const server = createServer(app);
-  // const io = new Server(server);
-  const io = new Server({
+let io;
+
+export const initializeSocket = () => {
+  io = new Server({
     cors: {
       origin: process.env.CLIENT_URL,
     },
@@ -35,7 +35,13 @@ export const setUpSocket = () => {
     log("client disconnected");
   });
 
-  io.listen(process.env.SOCKET_PORT);
+  return io;
+};
+
+export const getIO = () => {
+  if (!io) throw new Error("Socket.io not initialized");
+
+  return io;
 };
 
 const log = (message) => {
