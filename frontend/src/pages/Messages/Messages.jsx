@@ -20,11 +20,11 @@ const Messages = () => {
     const currentFilter = searchParams.get("filter");
     return `${styles.tag} ${currentFilter === filter ? styles.active : ""}`;
   };
-  console.log(filteredUsers);
+  // console.log(filteredUsers);
 
   useEffect(() => {
     const filter = searchParams.get("filter");
-    console.log(filter);
+    // console.log(filter);
 
     if (filter === "All" || !filter) setFilteredUsers(users);
     else setFilteredUsers(users.filter((user) => user.role === filter));
