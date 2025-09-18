@@ -13,9 +13,9 @@ import authorizeUser from "../middleware/authorize.js";
 const router = Router();
 
 router.get("/", authMiddleware, getUsers);
+router.get("/classmates", authMiddleware, getClassmates);
 router.get("/:id", authMiddleware, getUser);
 router.put("/:id", authMiddleware, authorizeUser, updateUser);
 router.delete("/:id", authMiddleware, authorizeUser, deleteUser);
-router.get("/classmates", authMiddleware, getClassmates);
 
 export default router;

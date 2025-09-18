@@ -1,5 +1,7 @@
 import { createCustomError } from "../errors/custom-error.js";
 import Users from "../models/users.model.js";
+import Courses from "../models/courses.model.js";
+
 import { StatusCodes } from "http-status-codes";
 
 export const getUsers = async (req, res) => {
@@ -39,5 +41,17 @@ export const deleteUser = async (req, res, next) => {
 };
 
 export const getClassmates = async (req, res) => {
-  res.status(StatusCodes.OK).json({ msg: "getClassmates route" });
+  const query = { enrolledStudents: { $in: req.user.id } };
+  const people = await Courses.find(query)
+    .select("instructor enrolledStudents -_id")
+    .populate({
+      path: "instructor",
+      select: "firstName lastName email role -_id",
+    })
+    .populate({
+      path: "enrolledStudents",
+      select: "firstName lastName email role -_id",
+    });
+
+  res.status(StatusCodes.OK).json({ people });
 };
