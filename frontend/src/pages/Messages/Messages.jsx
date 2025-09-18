@@ -1,5 +1,7 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import { NavLink, useSearchParams, useLoaderData } from "react-router";
+
+import { AuthContext } from "../../context/store";
 
 import { Profile } from "../../components";
 
@@ -11,7 +13,8 @@ const TAGS = [
 ];
 
 const Messages = () => {
-  const users = useLoaderData();
+  const { currentUser } = useContext(AuthContext);
+  const users = useLoaderData().filter((user) => user._id != currentUser._id);
 
   const [searchParams, setSearchParams] = useSearchParams();
   const [filteredUsers, setFilteredUsers] = useState(users);
