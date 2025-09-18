@@ -4,4 +4,5 @@ export const userService = {
   getAll: () => fetchWithAuth("/users"),
   getInstructors: () => fetchWithAuth("/users?role=Instructor"),
   getStudents: () => fetchWithAuth("/users?role=Student"),
+  getClassmates: () => fetchWithAuth("/users/classmates"),
 };

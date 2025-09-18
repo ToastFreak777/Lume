@@ -43,14 +43,14 @@ export const deleteUser = async (req, res, next) => {
 export const getClassmates = async (req, res) => {
   const query = { enrolledStudents: { $in: req.user.id } };
   const people = await Courses.find(query)
-    .select("instructor enrolledStudents -_id")
+    .select("instructor enrolledStudents")
     .populate({
       path: "instructor",
-      select: "firstName lastName email role -_id",
+      select: "firstName lastName email role",
     })
     .populate({
       path: "enrolledStudents",
-      select: "firstName lastName email role -_id",
+      select: "firstName lastName email role",
     });
 
   res.status(StatusCodes.OK).json({ people });

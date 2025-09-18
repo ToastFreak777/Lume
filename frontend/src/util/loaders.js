@@ -27,6 +27,13 @@ export const editCourseLoader = async ({ params }) => {
 };
 
 export const messageLoader = async () => {
-  const users = await userService.getAll();
-  return users;
+  const data = await userService.getClassmates();
+  const flattendData = data.people.flatMap((p) => [
+    p.instructor,
+    ...(p.enrolledStudents || []),
+  ]);
+  const people = Array.from(
+    new Map(flattendData.map((person) => [person.email, person])).values(),
+  );
+  return people;
 };

@@ -9,7 +9,7 @@ import styles from "./Messages.module.css";
 const TAGS = [
   { id: "All", label: "All" },
   { id: "Instructor", label: "Instructors" },
-  { id: "Student", label: "Students" },
+  { id: "Student", label: "Classmates" },
 ];
 
 const Messages = () => {
