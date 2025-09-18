@@ -22,6 +22,15 @@
         .notesTitle {
           text-transform: capitalize;
           margin: 0;
+          flex-grow: 1;
+
+          input {
+            border: none;
+            outline: none;
+            background-color: inherit;
+            width: 100%;
+            font-weight: bold;
+          }
         }
 
         .notesIcons {
