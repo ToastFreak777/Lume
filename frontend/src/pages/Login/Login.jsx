@@ -5,9 +5,11 @@ import { authService } from "../../services";
 import { AuthContext } from "../../context/store";
 
 const Login = () => {
+  const isDev = import.meta.env.DEV;
+
   const [formData, setFormData] = useState({
-    email: "admin@school.edu",
-    password: "111111",
+    email: isDev ? import.meta.env.VITE_DEFAULT_EMAIL : "",
+    password: isDev ? import.meta.env.VITE_DEFAULT_PASSWORD : "",
     checked: false,
   });
 
