@@ -6,7 +6,7 @@ export const getUsers = async (req, res) => {
   const { role } = req.query;
 
   const users = await Users.find(
-    role ? { role: role } : { role: { $ne: "Admin" } }
+    role ? { role: role } : { role: { $ne: "Admin" } },
   );
 
   res.status(StatusCodes.OK).json(users);
@@ -36,4 +36,8 @@ export const deleteUser = async (req, res, next) => {
   res
     .status(StatusCodes.OK)
     .json({ msg: `User of id ${user._id} deleted successfully` });
+};
+
+export const getClassmates = async (req, res) => {
+  res.status(StatusCodes.OK).json({ msg: "getClassmates route" });
 };
