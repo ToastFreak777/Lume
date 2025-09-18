@@ -2,10 +2,11 @@ import { Server } from "socket.io";
 
 let io;
 
-export const initializeSocket = () => {
-  io = new Server({
+export const initializeSocket = (server) => {
+  io = new Server(server, {
     cors: {
       origin: process.env.CLIENT_URL,
+      credentials: true,
     },
   });
 

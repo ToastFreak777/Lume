@@ -1,4 +1,5 @@
 import express from "express";
+import http from "http";
 import dotenv from "dotenv";
 import "express-async-errors";
 
@@ -15,8 +16,8 @@ dotenv.config();
 import { initializeSocket } from "./socket.js";
 
 const app = express();
-const io = initializeSocket();
-io.listen(process.env.SOCKET_PORT);
+const server = http.createServer(app);
+const io = initializeSocket(server);
 
 // Logger
 import morgan from "morgan";
@@ -71,10 +72,8 @@ const start = async () => {
     await connectDB(process.env.MONGODB_URI);
     console.info("Connected to MongoDB");
 
-    const port = process.env.PORT || 3000;
-    app.listen(port, () => {
-      console.log(`Server is listening on port ${port}...`);
-    });
+    const PORT = process.env.PORT || 3000;
+    server.listen(PORT, () => console.log(`Server listening on port ${PORT}`));
   } catch (error) {
     console.error(error);
   }
