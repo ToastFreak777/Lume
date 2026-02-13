@@ -8,8 +8,8 @@ const Login = () => {
   const isDev = import.meta.env.DEV;
 
   const [formData, setFormData] = useState({
-    email: isDev ? import.meta.env.VITE_DEFAULT_EMAIL : "",
-    password: isDev ? import.meta.env.VITE_DEFAULT_PASSWORD : "",
+    email: isDev ? import.meta.env.VITE_DEFAULT_EMAIL : "demoStudent@demo.edu",
+    password: isDev ? import.meta.env.VITE_DEFAULT_PASSWORD : "111111",
     checked: false,
   });
 
