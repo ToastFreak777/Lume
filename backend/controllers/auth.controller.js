@@ -23,7 +23,7 @@ export const register = async (req, res, next) => {
       req.body,
       next,
       createCustomError,
-      StatusCodes.BAD_REQUEST
+      StatusCodes.BAD_REQUEST,
     )
   )
     return;
@@ -31,7 +31,7 @@ export const register = async (req, res, next) => {
   const existingUser = await User.findOne({ email });
   if (existingUser) {
     return next(
-      createCustomError("Email already registered", StatusCodes.CONFLICT)
+      createCustomError("Email already registered", StatusCodes.CONFLICT),
     );
   }
 
@@ -45,8 +45,8 @@ export const login = async (req, res, next) => {
     return next(
       createCustomError(
         "Please provide an email and password",
-        StatusCodes.BAD_REQUEST
-      )
+        StatusCodes.BAD_REQUEST,
+      ),
     );
   }
 
@@ -54,7 +54,7 @@ export const login = async (req, res, next) => {
 
   if (!user) {
     return next(
-      createCustomError("Invalid credentials", StatusCodes.UNAUTHORIZED)
+      createCustomError("Invalid credentials", StatusCodes.UNAUTHORIZED),
     );
   }
 
@@ -62,16 +62,19 @@ export const login = async (req, res, next) => {
 
   if (!isPasswordCorrect) {
     return next(
-      createCustomError("Invalid credentials", StatusCodes.UNAUTHORIZED)
+      createCustomError("Invalid credentials", StatusCodes.UNAUTHORIZED),
     );
   }
 
   const token = user.generateToken();
 
+  const isProduction = process.env.NODE_ENV === "production";
+
   res
     .cookie("token", token, {
       httpOnly: true,
-      secure: process.env.NODE_ENV === "production",
+      secure: isProduction,
+      sameSite: isProduction ? "none" : "lax",
       maxAge: ms(process.env.JWT_EXPIRE_TIME),
     })
     .status(StatusCodes.OK)
@@ -91,7 +94,16 @@ export const getCredentials = async (req, res, next) => {
 export const logout = async (req, res) => {
   req.user = null;
 
-  res.clearCookie("token", { httpOnly: true }).status(StatusCodes.OK).json({
-    msg: "User logged out successfully",
-  });
+  const isProduction = process.env.NODE_ENV === "production";
+
+  res
+    .clearCookie("token", {
+      httpOnly: true,
+      secure: isProduction,
+      sameSite: isProduction ? "none" : "lax",
+    })
+    .status(StatusCodes.OK)
+    .json({
+      msg: "User logged out successfully",
+    });
 };
