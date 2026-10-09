@@ -38,9 +38,10 @@ const Login = () => {
       const from = location.state?.from?.pathname || "/";
       navigate(from);
     } catch (error) {
-      console.error(`Error message: ${error.message}`);
-      console.error(error.data);
-      console.info(error);
+      if (error instanceof Error) {
+        console.error(`Error message: ${error.message}`);
+        console.error(error.data);
+      }
     }
   };
 
