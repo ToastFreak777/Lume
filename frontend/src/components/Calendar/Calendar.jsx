@@ -21,16 +21,8 @@ import { useEffect, useState } from "react";
  */
 
 const Calendar = ({ assignments }) => {
-  const [startDate, setStartDate] = useState(() => {
-    const now = new Date();
-    now.setHours(0, 0, 0, 0);
-    return now;
-  });
-  const [endDate, setEndDate] = useState(() => {
-    const tempDate = new Date(startDate);
-    tempDate.setDate(new Date().getDate() + 21);
-    return tempDate;
-  });
+  const [startDate, setStartDate] = useState(new Date(2026, 1, 1));
+  const [endDate, setEndDate] = useState(new Date(2026, 1, 22));
   const [calendarDays, setCalendarDays] = useState(/** @type {Date[]} */ ([]));
   const [assignmentsByDate, setAssignmentsByDate] = useState(
     /** @type {AssignmentsByDate} */ ({}),
@@ -112,8 +104,10 @@ const Calendar = ({ assignments }) => {
             {formatDate(startDate)} - {formatDate(endDate)}
           </p>
           <div className={styles.arrow}>
-            <IoIosArrowUp onClick={() => changeCalendar(true)} />
-            <IoIosArrowDown onClick={() => changeCalendar(false)} />
+            <IoIosArrowUp />
+            <IoIosArrowDown />
+            {/* <IoIosArrowUp onClick={() => changeCalendar(true)} />
+            <IoIosArrowDown onClick={() => changeCalendar(false)} /> */}
           </div>
         </div>
       </div>
